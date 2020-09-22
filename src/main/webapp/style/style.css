@@ -1,0 +1,20 @@
+.nav_bar_btn{
+    text-align: right;
+    margin: auto;
+}
+.nav_bar_btn button{
+    margin-left: 10px;
+}
+.nav_bar_logo{
+    width: 250px;
+}
+.login_area{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.login_submit{
+    float: right;
+    margin-top: 5px;
+}
