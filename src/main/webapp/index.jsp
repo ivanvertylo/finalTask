@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -18,7 +19,18 @@
                 </div>
                 <div class="col-md-8 nav_bar_btn">
                     <button type="button" class="btn btn-primary">Тесты</button>
-                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#staticBackdrop">Вход/Регистрация</button>
+                    <c:choose>
+                        <c:when test="${role != null}">
+                            <button type="button" class="btn btn-success"><%=session.getAttribute("username")%></button>
+                            <form style="display: inline-block; margin: 0;" method="post" action="controller">
+                                <input type="hidden" name="command" value="logout">
+                                <button type="submit" class="btn btn-outline-danger">Выход</button>
+                            </form>
+                        </c:when>
+                        <c:otherwise>
+                            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#staticBackdrop">Вход|Регистрация</button>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
@@ -27,41 +39,29 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                        <h5 class="modal-title" id="staticBackdropLabel">Вход|Регистрация</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body login_area">
-                        <form onsubmit="onLogin(this)" method="POST">
+                        <form action="controller" method="POST">
                             <input type="hidden" name="command" value="loginReg">
 
                             <label for="login">Login</label>
                             <br>
                             <input type="text" name="login" id="login"/>
                             <br>
-                            <label for="password">Password</label>
+                            <label style="margin-top: 10px;" for="password">Password</label>
                             <br>
                             <input type="text" name="password" id="password" />
                             <br>
+                            <label class="is_new" for="isNew">У меня нет аккаунта
+                                <input type="checkbox" name="isNew" id="isNew">
+                            </label>
+                            <br>
                             <button type="submit" class="btn btn-success login_submit">Войти</button>
                         </form>
-                        <script>
-                            function onLogin(e){
-                                debugger
-                                let formData = new FormData(e);
-                                let login  = formData.get("login")
-                                let password  = formData.get("password")
-                                let command  = formData.get("command")
-                                fetch("/controller?login="+login+"&password="+password+"&command="+command, {
-                                    method: "POST",
-                                    headers: {
-                                        'Accept': 'application/json',
-                                        'Content-Type': 'application/json',
-                                    }
-                                })
-                            }
-                        </script>
                     </div>
                 </div>
             </div>

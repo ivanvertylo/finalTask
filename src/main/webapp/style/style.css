@@ -18,3 +18,10 @@
     float: right;
     margin-top: 5px;
 }
+.is_new{
+    float: right;
+    margin-top: 5px;
+}
+.is_new input{
+    vertical-align: middle;
+}

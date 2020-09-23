@@ -6,6 +6,7 @@ public class CommandContainer {
 
     public CommandContainer(){
         commands.put("loginReg", new LoginReg());
+        commands.put("logout", new Logout());
     }
 
     public Command get(String commandName) {

@@ -4,9 +4,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
 
 
 @WebServlet("/controller")
@@ -31,7 +29,7 @@ public class Controller extends HttpServlet {
             request.getRequestDispatcher(forward).forward(request, response);
         }
         catch (Exception e){
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
     }
     public static String getUTF8(HttpServletRequest request, String parameter){
