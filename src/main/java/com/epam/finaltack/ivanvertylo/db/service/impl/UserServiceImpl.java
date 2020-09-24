@@ -6,19 +6,34 @@ import com.epam.finaltack.ivanvertylo.db.repository.impl.UserRepositoryImpl;
 import com.epam.finaltack.ivanvertylo.db.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.util.regex.Pattern;
+
 public class UserServiceImpl implements UserService {
-    UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     public UserServiceImpl() {
         userRepository = new UserRepositoryImpl();
     }
 
     @Override
-    public User validateUser(String login, String password) {
-        User user = userRepository.findUserByLogin(login);
-        if (user.getPassword() != null){
-            return user.getPassword().equals(DigestUtils.md5Hex(password)) ? user : null;
+    public User validateUser(User user) {
+        User userResp = userRepository.findUserByLogin(user.getLogin());
+        if (userResp.getPassword() != null) {
+            return userResp.getPassword().equals(DigestUtils.md5Hex(user.getPassword())) ? userResp : null;
         }
         return null;
+    }
+
+    @Override
+    public int registerUser(User user) {
+        if (Pattern.compile("[A-Za-z0-9]+").matcher(user.getLogin()).find() &&
+                Pattern.compile("[A-Za-z0-9]+").matcher(user.getPassword()).find()){
+            if (userRepository.findUserByLogin(user.getLogin()).getPassword() == null){
+                user.setUsername(user.getLogin());
+                return userRepository.saveUser(user);
+            }
+        }
+        return 0;
     }
 }

@@ -37,7 +37,7 @@
                     </c:when>
                     <c:otherwise>
                         <button type="button" class="btn btn-outline-success" data-toggle="modal"
-                                data-target="#staticBackdrop">Вход|Регистрация
+                                data-target="#staticBackdrop">Вход | Регистрация
                         </button>
                     </c:otherwise>
                 </c:choose>
@@ -50,7 +50,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Вход|Регистрация</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">Вход | Регистрация</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -61,23 +61,24 @@
 
                         <label for="login">Login</label>
                         <br>
-                        <input type="text" name="login" id="login"/>
+                        <input type="text" pattern="[A-Za-z0-9]+" name="login" id="login"/>
                         <br>
                         <label style="margin-top: 10px;" for="password">Password</label>
                         <br>
-                        <input type="text" name="password" id="password"/>
+                        <input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*" title="Поле пароля: Минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем" name="password" id="password"/>
                         <br>
-                        <label class="is_new" for="isNew">У меня нет аккаунта
+                        <label id="isNewLabel" class="is_new" for="isNew">У меня нет аккаунта
                             <input type="checkbox" name="isNew" id="isNew">
                         </label>
                         <br>
-                        <button type="submit" class="btn btn-success login_submit">Войти</button>
+                        <button id="enter" type="submit" class="btn btn-success login_submit">Войти</button>
+                        <div id="check" style="display: none" class="btn btn-primary login_submit">Далее</div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="toast" style="background-color: pink" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toastLogin toast" style="background-color: pink" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
             <strong class="mr-auto">Ошибка авторизации</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -88,18 +89,59 @@
             Неверный логин или пароль.
         </div>
     </div>
-
+    <div class="toastRegister toast" style="background-color: orange" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="mr-auto">Ошибка регистрации</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span class="hide-toast" aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            Данные некорректны или такой пользователь уже существует.
+        </div>
+    </div>
     <script>
+        let password;
+        $("#isNew").click(function () {
+            $("#check").toggle(this.checked);
+            $("#enter").toggle(!this.checked);
+        })
+        $("#check").click(function () {
+            if(password === $("#password").val()){
+                $("#check").hide();
+                $("#enter").show();
+                $("#password").attr('readonly', true);
+                $("#password").css("background-color", "lightgreen");
+            }
+            else {
+                alert("Введите пароль еще раз")
+                $("#isNewLabel").hide()
+                password = $("#password").val()
+                $("#password").val("");
+                $("#check").text("Проверить пароль");
+            }
+
+        })
         <c:choose>
         <c:when test="${loginError == true}">
-        $('.toast').toast({autohide: false});
-        $('.toast').toast("show");
+        $('.toastLogin').toast({autohide: false});
+        $('.toastLogin').toast("show");
         $(".hide-toast").click(function () {
-            $(".toast").toast('hide');
+            $(".toastRegister").hide();
+            $(".toastLogin").hide();
+        });
+        </c:when>
+        <c:when test="${registerError == true}">
+        $('.toastRegister').toast({autohide: false});
+        $('.toastRegister').toast("show");
+        $(".hide-toast").click(function () {
+            $(".toastRegister").hide();
+            $(".toastLogin").hide();
         });
         </c:when>
         <c:otherwise>
-        $(".toast").hide();
+        $(".toastRegister").hide();
+        $(".toastLogin").hide();
         </c:otherwise>
         </c:choose>
     </script>

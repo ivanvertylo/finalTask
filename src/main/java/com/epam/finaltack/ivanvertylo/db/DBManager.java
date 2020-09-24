@@ -85,4 +85,26 @@ public class DBManager {
         }
     }
 
+    public void close(Statement stmt, Connection con, ResultSet res) {
+        if (stmt != null) {
+            try {
+                res.close();
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                LOGGER.error(ex.getMessage());
+            }
+        }
+    }
+    public void close(Statement stmt, Connection con) {
+        if (stmt != null) {
+            try {
+                stmt.close();
+                con.close();
+            } catch (SQLException ex) {
+                LOGGER.error(ex.getMessage());
+            }
+        }
+    }
+
 }
