@@ -1,3 +1,9 @@
+package com.epam.finaltack.ivanvertylo.db.service.impl;
+
+import com.epam.finaltack.ivanvertylo.db.entity.User;
+import com.epam.finaltack.ivanvertylo.db.repository.UserRepository;
+import com.epam.finaltack.ivanvertylo.db.repository.impl.UserRepositoryImpl;
+import com.epam.finaltack.ivanvertylo.db.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class UserServiceImpl implements UserService {

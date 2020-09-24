@@ -1,3 +1,5 @@
+package com.epam.finaltack.ivanvertylo.web.command;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

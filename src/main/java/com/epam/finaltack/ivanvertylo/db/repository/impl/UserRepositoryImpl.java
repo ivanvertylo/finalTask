@@ -1,6 +1,11 @@
+package com.epam.finaltack.ivanvertylo.db.repository.impl;
+
+import com.epam.finaltack.ivanvertylo.db.DBManager;
+import com.epam.finaltack.ivanvertylo.db.SQL;
+import com.epam.finaltack.ivanvertylo.db.entity.User;
+import com.epam.finaltack.ivanvertylo.db.repository.UserRepository;
 import org.apache.log4j.Logger;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

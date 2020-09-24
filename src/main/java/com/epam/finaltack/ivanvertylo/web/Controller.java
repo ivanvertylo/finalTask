@@ -1,3 +1,7 @@
+package com.epam.finaltack.ivanvertylo.web;
+
+import com.epam.finaltack.ivanvertylo.web.command.Command;
+import com.epam.finaltack.ivanvertylo.web.command.CommandContainer;
 import org.apache.log4j.Logger;
 
 import javax.servlet.annotation.WebServlet;

@@ -1,3 +1,5 @@
+package com.epam.finaltack.ivanvertylo.db;
+
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;

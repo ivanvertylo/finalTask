@@ -1,3 +1,5 @@
+package com.epam.finaltack.ivanvertylo.db.entity;
+
 import java.util.Objects;
 
 public class User {

@@ -1,3 +1,9 @@
+package com.epam.finaltack.ivanvertylo.web.command;
+
+import com.epam.finaltack.ivanvertylo.Path;
+import com.epam.finaltack.ivanvertylo.db.entity.User;
+import com.epam.finaltack.ivanvertylo.db.service.UserService;
+import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;

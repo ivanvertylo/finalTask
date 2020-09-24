@@ -1,3 +1,5 @@
+package com.epam.finaltack.ivanvertylo.web.command;
+
 import java.util.Map;
 import java.util.TreeMap;
 
