@@ -25,3 +25,10 @@
 .is_new input{
     vertical-align: middle;
 }
+.toast{
+    position: absolute;
+    width: 300px;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
