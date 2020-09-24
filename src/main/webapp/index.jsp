@@ -65,7 +65,10 @@
                         <br>
                         <label style="margin-top: 10px;" for="password">Password</label>
                         <br>
-                        <input type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*" title="Поле пароля: Минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем" name="password" id="password"/>
+                        <input type="password"
+                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
+                               title="Поле пароля: Минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
+                               name="password" id="password"/>
                         <br>
                         <label id="isNewLabel" class="is_new" for="isNew">У меня нет аккаунта
                             <input type="checkbox" name="isNew" id="isNew">
@@ -89,7 +92,8 @@
             Неверный логин или пароль.
         </div>
     </div>
-    <div class="toastRegister toast" style="background-color: orange" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toastRegister toast" style="background-color: orange" role="alert" aria-live="assertive"
+         aria-atomic="true">
         <div class="toast-header">
             <strong class="mr-auto">Ошибка регистрации</strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -107,13 +111,12 @@
             $("#enter").toggle(!this.checked);
         })
         $("#check").click(function () {
-            if(password === $("#password").val()){
+            if (password === $("#password").val()) {
                 $("#check").hide();
                 $("#enter").show();
                 $("#password").attr('readonly', true);
                 $("#password").css("background-color", "lightgreen");
-            }
-            else {
+            } else {
                 alert("Введите пароль еще раз")
                 $("#isNewLabel").hide()
                 password = $("#password").val()
