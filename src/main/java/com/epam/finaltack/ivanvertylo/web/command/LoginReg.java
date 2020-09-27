@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LoginReg extends Command {
 
@@ -26,6 +24,7 @@ public class LoginReg extends Command {
     }
 
 
+    private String error = "";
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -38,14 +37,14 @@ public class LoginReg extends Command {
                 httpSession.setAttribute(Constant.ROLE, user.getRole());
                 httpSession.setAttribute(Constant.USERNAME, user.getUsername());
             } else {
-                request.setAttribute(Constant.ERROR_LOGIN, true);
+                error = Constant.ERROR_LOGIN;
             }
         } else {
             String login = request.getParameter(Constant.LOGIN);
             String password = request.getParameter(Constant.PASSWORD);
 
             if (userService.registerUser(new User(login, password)) == 0) {
-                request.setAttribute(Constant.ERROR_REGISTER, true);
+                error = Constant.ERROR_REGISTER;
             }
             else {
                 User user = userService.validateUser(new User(login,
@@ -55,6 +54,6 @@ public class LoginReg extends Command {
                 httpSession.setAttribute(Constant.USERNAME, user.getUsername());
             }
         }
-        return Path.MAIN_PAGE;
+        return setErrorReturn(Path.CONTROLLER_MAIN_PAGE,error);
     }
 }

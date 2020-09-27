@@ -19,6 +19,7 @@ public class Logout extends Command {
         if (session!=null){
             session.invalidate();
         }
-        return Path.MAIN_PAGE;
+
+        return Path.CONTROLLER_MAIN_PAGE;
     }
 }
