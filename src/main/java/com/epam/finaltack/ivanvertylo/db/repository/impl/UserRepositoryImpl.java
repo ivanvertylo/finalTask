@@ -72,11 +72,11 @@ public class UserRepositoryImpl implements UserRepository {
 
     private User extractUser(ResultSet rs) throws SQLException {
         User user = new User();
-        user.setId(rs.getInt("id"));
-        user.setLogin(rs.getString("login"));
-        user.setPassword(rs.getString("password"));
-        user.setRole(rs.getString("role"));
-        user.setUsername(rs.getString("username"));
+        user.setId(rs.getInt(Query.ID));
+        user.setLogin(rs.getString(Query.USER_LOGIN));
+        user.setPassword(rs.getString(Query.USER_PASSWORD));
+        user.setRole(rs.getString(Query.USER_ROLE));
+        user.setUsername(rs.getString(Query.USER_USERNAME));
         return user;
     }
 }

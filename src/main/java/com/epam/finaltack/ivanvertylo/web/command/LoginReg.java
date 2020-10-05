@@ -36,6 +36,7 @@ public class LoginReg extends Command {
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute(Constant.ROLE, user.getRole());
                 httpSession.setAttribute(Constant.USERNAME, user.getUsername());
+                httpSession.setAttribute(Constant.LOGIN, user.getLogin());
             } else {
                 error = Constant.ERROR_LOGIN;
             }

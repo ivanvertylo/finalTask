@@ -11,6 +11,8 @@ public class CommandContainer {
     public CommandContainer(){
         commands.put(Constant.COMMAND_LOGIN, new LoginReg());
         commands.put(Constant.COMMAND_LOGOUT, new Logout());
+        commands.put(Constant.COMMAND_ADMIN, new Admin());
+        commands.put(Constant.COMMAND_CREATE_TEST, new CreateTest());
     }
 
     public Command get(String commandName) {
