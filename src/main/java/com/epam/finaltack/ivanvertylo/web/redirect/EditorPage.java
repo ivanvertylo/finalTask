@@ -23,13 +23,16 @@ public class EditorPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String role = (String) req.getSession().getAttribute("role");
-        if (role != null && role.equals(Constant.ROLE_ADMIN)) {
-            Test test = testService.findTestById(Integer.parseInt(req.getParameter(Query.ID)));
-            HttpSession session = req.getSession();
-            session.setAttribute(Constant.TEST_NAME, test.getName());
-            getServletContext().getRequestDispatcher(Path.EDITOR_PAGE).forward(req, resp);
-        } else {
+        HttpSession session = req.getSession();
+        try {
+            Test test = testService.findTestById(Integer.parseInt(req.getParameter(Constant.ID)));
+            if (test.getId() != null && test.getAuthor().equals(session.getAttribute(Constant.LOGIN))) {
+                req.setAttribute(Constant.TEST_NAME, test.getName());
+                getServletContext().getRequestDispatcher(Path.EDITOR_PAGE).forward(req, resp);
+            } else {
+                getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);
+            }
+        } catch (Exception e) {
             getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);
         }
     }

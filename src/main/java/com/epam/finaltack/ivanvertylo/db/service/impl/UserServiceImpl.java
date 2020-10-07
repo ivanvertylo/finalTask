@@ -25,6 +25,8 @@ public class UserServiceImpl implements UserService {
         return null;
     }
 
+
+
     @Override
     public int registerUser(User user) {
         if (Pattern.compile("[A-Za-z0-9]+").matcher(user.getLogin()).find() &&
@@ -35,5 +37,15 @@ public class UserServiceImpl implements UserService {
             }
         }
         return 0;
+    }
+
+    @Override
+    public User findUserByLogin(String login) {
+        return userRepository.findUserByLogin(login);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        userRepository.updateUser(user);
     }
 }

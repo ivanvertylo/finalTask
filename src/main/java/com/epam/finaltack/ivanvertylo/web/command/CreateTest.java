@@ -24,12 +24,13 @@ public class CreateTest extends Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        //Нужна валидация поля тест name
         HttpSession session = request.getSession();
         Test test = new Test();
         test.setName(ServletUtil.getUTF8(request, Constant.TEST_NAME));
         test.setAuthor((String) session.getAttribute(Constant.LOGIN));
         test.setPublic(false);
         int testId = testService.save(test);
-        return Path.CONTROLLER_EDITOR_PAGE + "?" + Query.ID + "=" + testId;
+        return Path.CONTROLLER_EDITOR_PAGE + "?" + Constant.ID + "=" + testId;
     }
 }

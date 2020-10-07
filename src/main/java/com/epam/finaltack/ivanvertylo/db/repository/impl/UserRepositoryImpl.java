@@ -58,6 +58,7 @@ public class UserRepositoryImpl implements UserRepository {
             prst.setString(2, DigestUtils.md5Hex(user.getPassword()));
             prst.setString(3, user.getUsername());
             prst.setString(4, Constant.ROLE_USER);
+            prst.setBoolean(5, false);
             res = prst.executeUpdate();
             con.commit();
 
@@ -70,6 +71,31 @@ public class UserRepositoryImpl implements UserRepository {
         return res;
     }
 
+    @Override
+    public void updateUser(User user) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_UPDATE_USER);
+            prst.setString(1, user.getLogin());
+            prst.setString(2, user.getUsername());
+            prst.setString(3, user.getRole());
+            prst.setBoolean(4, user.getBlocked());
+            prst.setInt(5, user.getId());
+            prst.executeUpdate();
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+            LOGGER.error(e.getMessage());
+        } finally {
+            dbManager.close(prst,con);
+        }
+    }
+
     private User extractUser(ResultSet rs) throws SQLException {
         User user = new User();
         user.setId(rs.getInt(Query.ID));
@@ -77,6 +103,7 @@ public class UserRepositoryImpl implements UserRepository {
         user.setPassword(rs.getString(Query.USER_PASSWORD));
         user.setRole(rs.getString(Query.USER_ROLE));
         user.setUsername(rs.getString(Query.USER_USERNAME));
+        user.setBlocked(rs.getBoolean(Query.USER_BLOCKED));
         return user;
     }
 }

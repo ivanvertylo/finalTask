@@ -7,6 +7,8 @@ import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestRepositoryImpl implements TestRepository {
 
@@ -69,6 +71,34 @@ public class TestRepositoryImpl implements TestRepository {
         }
         return requests;
     }
+
+    @Override
+    public List<Test> findTestsByAuthor(String author) {
+        List<Test> requests = new ArrayList<>();
+        ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_FIND_TEST_BY_AUTHOR);
+            prst.setString(1, author);
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                requests.add(extractTest(rs));
+            }
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+            LOGGER.error(e.getMessage());
+        } finally {
+            dbManager.close(prst,con,rs);
+        }
+        return requests;
+    }
+
     private Test extractTest(ResultSet rs) throws SQLException {
         Test test = new Test();
         test.setId(rs.getInt(Query.ID));

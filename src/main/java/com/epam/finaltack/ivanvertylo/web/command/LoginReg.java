@@ -33,10 +33,15 @@ public class LoginReg extends Command {
             User user = userService.validateUser(new User(request.getParameter(Constant.LOGIN),
                     request.getParameter(Constant.PASSWORD)));
             if (user != null) {
-                HttpSession httpSession = request.getSession();
-                httpSession.setAttribute(Constant.ROLE, user.getRole());
-                httpSession.setAttribute(Constant.USERNAME, user.getUsername());
-                httpSession.setAttribute(Constant.LOGIN, user.getLogin());
+                if(user.getBlocked().equals(false)){
+                    HttpSession httpSession = request.getSession();
+                    httpSession.setAttribute(Constant.ROLE, user.getRole());
+                    httpSession.setAttribute(Constant.USERNAME, user.getUsername());
+                    httpSession.setAttribute(Constant.LOGIN, user.getLogin());
+                }
+                else {
+                    error = Constant.ERROR_BLOCKED;
+                }
             } else {
                 error = Constant.ERROR_LOGIN;
             }

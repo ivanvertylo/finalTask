@@ -51,11 +51,11 @@
 
                         <label for="login">Login</label>
                         <br>
-                        <input type="text" pattern="[A-Za-z0-9]+" name="login" id="login"/>
+                        <input type="text" required="required" pattern="[A-Za-z0-9]+" name="login" id="login"/>
                         <br>
                         <label style="margin-top: 10px;" for="password">Password</label>
                         <br>
-                        <input type="password"
+                        <input required="required" type="password"
                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
                                title="Поле пароля: Минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
                                name="password" id="password"/>

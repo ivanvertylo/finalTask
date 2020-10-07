@@ -1,8 +1,9 @@
 package com.epam.finaltack.ivanvertylo.web;
 
+import com.epam.finaltack.ivanvertylo.Constant;
+import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.web.command.Command;
 import com.epam.finaltack.ivanvertylo.web.command.CommandContainer;
-import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,8 +29,14 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter("command");
         CommandContainer commandContainer = new CommandContainer();
         Command command = commandContainer.get(commandName);
-        String redirect = command.execute(request, response);
-        response.sendRedirect(redirect);
+        if (command != null){
+            String redirect = command.execute(request, response);
+            if (!redirect.equals(Path.NO_REDIRECT)){
+                response.sendRedirect(redirect);
+            }
+        }
+        else {
+            response.sendRedirect(Path.CONTROLLER_ERROR_PAGE);
+        }
     }
-
 }

@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String role;
     private String username;
+    private Boolean isBlocked;
 
     public User() { }
 
@@ -52,6 +53,14 @@ public class User {
         return username;
     }
 
+    public Boolean getBlocked() {
+        return isBlocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        isBlocked = blocked;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -65,11 +74,12 @@ public class User {
                 Objects.equals(login, user.login) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(role, user.role) &&
-                Objects.equals(username, user.username);
+                Objects.equals(username, user.username) &&
+                Objects.equals(isBlocked, user.isBlocked);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, role, username);
+        return Objects.hash(id, login, password, role, username, isBlocked);
     }
 }

@@ -5,6 +5,8 @@ import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.impl.TestRepositoryImpl;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
 
+import java.util.List;
+
 public class TestServiceImpl implements TestService {
 
     TestRepository repository;
@@ -21,5 +23,10 @@ public class TestServiceImpl implements TestService {
     @Override
     public Test findTestById(Integer id) {
         return repository.findTestById(id);
+    }
+
+    @Override
+    public List<Test> findTestsByAuthor(String author) {
+        return repository.findTestsByAuthor(author);
     }
 }

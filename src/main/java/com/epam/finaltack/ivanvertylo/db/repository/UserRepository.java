@@ -5,4 +5,5 @@ import com.epam.finaltack.ivanvertylo.db.entity.User;
 public interface UserRepository {
     User findUserByLogin(String login);
     int saveUser(User user);
+    void updateUser(User user);
 }
