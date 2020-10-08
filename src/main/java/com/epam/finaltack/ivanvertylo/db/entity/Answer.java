@@ -6,6 +6,7 @@ public class Answer {
     private Integer id;
     private String name;
     private Boolean isRight;
+    private Integer questionId;
 
     public Integer getId() {
         return id;
@@ -31,6 +32,14 @@ public class Answer {
         isRight = right;
     }
 
+    public Integer getQuestionId() {
+        return questionId;
+    }
+
+    public void setQuestionId(Integer questionId) {
+        this.questionId = questionId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -38,12 +47,13 @@ public class Answer {
         Answer answer = (Answer) o;
         return Objects.equals(id, answer.id) &&
                 Objects.equals(name, answer.name) &&
-                Objects.equals(isRight, answer.isRight);
+                Objects.equals(isRight, answer.isRight) &&
+                Objects.equals(questionId, answer.questionId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, isRight);
+        return Objects.hash(id, name, isRight, questionId);
     }
 
     @Override
@@ -52,6 +62,7 @@ public class Answer {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", isRight=" + isRight +
+                ", questionId=" + questionId +
                 '}';
     }
 }

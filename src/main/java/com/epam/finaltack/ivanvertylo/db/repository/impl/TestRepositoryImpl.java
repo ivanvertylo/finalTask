@@ -18,7 +18,6 @@ public class TestRepositoryImpl implements TestRepository {
     public int save(Test test) {
         Connection con = null;
         PreparedStatement prst = null;
-        ResultSet rs = null;
         DBManager dbManager = DBManager.getInstance();
         try {
             con = dbManager.getConnection();
@@ -106,6 +105,7 @@ public class TestRepositoryImpl implements TestRepository {
         test.setSubject(rs.getString(Query.TEST_SUBJECT));
         test.setAuthor(rs.getString(Query.TEST_AUTHOR));
         test.setPublic(rs.getBoolean(Query.TEST_PUBLIC));
+        test.setTime(rs.getInt(Query.TEST_TIME));
         return test;
     }
 }

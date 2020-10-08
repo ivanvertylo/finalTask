@@ -7,7 +7,7 @@ public class Question {
     private Integer id;
     private String name;
     private Integer point;
-
+    private Integer testId;
     private List<Answer> answers;
 
     public Integer getId() {
@@ -34,6 +34,14 @@ public class Question {
         this.point = point;
     }
 
+    public Integer getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Integer testId) {
+        this.testId = testId;
+    }
+
     public List<Answer> getAnswers() {
         return answers;
     }
@@ -50,12 +58,13 @@ public class Question {
         return Objects.equals(id, question.id) &&
                 Objects.equals(name, question.name) &&
                 Objects.equals(point, question.point) &&
+                Objects.equals(testId, question.testId) &&
                 Objects.equals(answers, question.answers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, point, answers);
+        return Objects.hash(id, name, point, testId, answers);
     }
 
     @Override
@@ -64,6 +73,7 @@ public class Question {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", point=" + point +
+                ", testId=" + testId +
                 ", answers=" + answers +
                 '}';
     }

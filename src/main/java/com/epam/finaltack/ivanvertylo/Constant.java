@@ -10,6 +10,7 @@ public class Constant {
     public static final String COMMAND_CREATE_TEST = "createTest";
     public static final String COMMAND_FIND_LOGIN = "findLogin";
     public static final String COMMAND_BLOCK_USER = "blockUser";
+    public static final String COMMAND_SAVE_QUESTION = "saveQuestion";
 
     public static final String ID = "id";
 
@@ -19,7 +20,17 @@ public class Constant {
     public static final String ROLE = "role";
     public static final String USERNAME = "username";
 
+
+    public static final String TEST_ID = "testId";
     public static final String TEST_NAME = "testName";
+    public static final String TEST_SUBJECT = "testSubject";
+    public static final String TEST_PUBLIC = "testPublic";
+    public static final String TEST_TIME = "testTime";
+
+    public static final String ANSWER = "answer";
+
+    public static final String QUESTION_NAME = "questionName";
+    public static final String QUESTION_POINT = "questionPoint";
 
     public static final String ROLE_USER = "user";
     public static final String ROLE_ADMIN = "admin";

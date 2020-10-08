@@ -29,12 +29,18 @@ public class Filter implements javax.servlet.Filter {
         privateCommand.put(Constant.COMMAND_BLOCK_USER, Arrays.asList(Constant.ROLE_ADMIN));
 
         privateUrl.put(Path.CONTROLLER_ADMIN_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
-        privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
+        //privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String url = ((HttpServletRequest) servletRequest).getRequestURI().split("/")[1];
+        String url;
+        try {
+            url = ((HttpServletRequest) servletRequest).getRequestURI().split("/")[1];
+        }
+        catch (Exception e){
+            url = Path.CONTROLLER_MAIN_PAGE;
+        }
         HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
         HttpSession session = httpRequest.getSession();
         String commandName = servletRequest.getParameter("command");

@@ -1,6 +1,5 @@
 package com.epam.finaltack.ivanvertylo.db.entity;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Test {
@@ -10,8 +9,6 @@ public class Test {
     private String author;
     private Boolean isPublic;
     private Integer time;
-
-    private List<Question> questions;
 
     public Integer getId() {
         return id;
@@ -61,13 +58,6 @@ public class Test {
         this.time = time;
     }
 
-    public List<Question> getQuestions() {
-        return questions;
-    }
-
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -79,13 +69,12 @@ public class Test {
                 Objects.equals(subject, test.subject) &&
                 Objects.equals(author, test.author) &&
                 Objects.equals(isPublic, test.isPublic) &&
-                Objects.equals(time, test.time) &&
-                Objects.equals(questions, test.questions);
+                Objects.equals(time, test.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, subject, author, isPublic, time, questions);
+        return Objects.hash(id, name, subject, author, isPublic, time);
     }
 
     @Override
@@ -97,7 +86,6 @@ public class Test {
                 ", author='" + author + '\'' +
                 ", isPublic=" + isPublic +
                 ", time=" + time +
-                ", questions=" + questions +
                 '}';
     }
 }

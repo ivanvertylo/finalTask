@@ -10,6 +10,10 @@ public class Query {
     public static final String SQL_FIND_TEST_BY_ID = "SELECT * FROM test WHERE test.id = ?;";
     public static final String SQL_FIND_TEST_BY_AUTHOR = "SELECT * FROM test WHERE test.author = ?;";
     public static final String SQL_UPDATE_USER = "UPDATE user SET login=?,username=?,role=?,is_blocked=? WHERE id=?";
+    public static final String SQL_FIND_ANSWERS_BY_QUESTION_ID = "SELECT * FROM answer WHERE question_id = ?;";
+    public static final String SQL_FIND_QUESTIONS_BY_TEST_ID = "SELECT * FROM question WHERE test_id = ?;";
+    public static final String SQL_SAVE_QUESTION = "INSERT INTO question(name, point, test_id) VALUES(?,?,?);";
+    public static final String SQL_SAVE_ANSWER = "INSERT INTO answer(name, is_right, question_id) VALUES(?,?,?);";
 
     public static final String ID = "id";
     //USER
@@ -24,4 +28,12 @@ public class Query {
     public static final String TEST_TIME = "time";
     public static final String TEST_AUTHOR = "author";
     public static final String TEST_PUBLIC = "is_public";
+    //QUESTION
+    public static final String QUESTION_NAME = "name";
+    public static final String QUESTION_POINT = "point";
+    public static final String QUESTION_TEST_ID = "test_id";
+    //ANSWER
+    public static final String ANSWER_NAME = "name";
+    public static final String ANSWER_RIGHT = "is_right";
+    public static final String ANSWER_QUESTION_ID = "question_id";
 }
