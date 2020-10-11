@@ -76,6 +76,53 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         return question.getId();
     }
 
+    @Override
+    public void updateQuestion(Question question) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_UPDATE_QUESTION);
+            prst.setString(1, question.getName());
+            prst.setInt(2, question.getId());
+            prst.executeUpdate();
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst,con);
+        }
+    }
+
+    @Override
+    public Question findQuestionById(Integer questionId) {
+        Question requests = new Question();
+        ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_FIND_QUESTION_BY_ID);
+            prst.setInt(1, questionId);
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                requests = extractQuestion(rs);
+            }
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst,con,rs);
+        }
+        return requests;
+    }
+
     private Question extractQuestion(ResultSet rs) throws SQLException {
         Question question = new Question();
         question.setId(rs.getInt(Query.ID));

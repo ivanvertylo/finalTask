@@ -33,4 +33,17 @@ public class QuestionServiceImpl implements QuestionService {
             answerRepository.saveAnswer(answer);
         }
     }
+
+    @Override
+    public void updateQuestion(Question question) {
+        questionRepository.updateQuestion(question);
+        for (Answer answer : question.getAnswers()){
+            answerRepository.updateAnswer(answer);
+        }
+    }
+
+    @Override
+    public Question findQuestionById(Integer id) {
+        return questionRepository.findQuestionById(id);
+    }
 }

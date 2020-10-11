@@ -98,6 +98,30 @@ public class TestRepositoryImpl implements TestRepository {
         return requests;
     }
 
+    @Override
+    public void updateTest(Test test) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_UPDATE_TEST);
+            prst.setString(1, test.getName());
+            prst.setString(2, test.getSubject());
+            prst.setBoolean(3, test.getPublic());
+            prst.setInt(4, test.getTime());
+            prst.setInt(5, test.getId());
+            prst.executeUpdate();
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst,con);
+        }
+    }
+
     private Test extractTest(ResultSet rs) throws SQLException {
         Test test = new Test();
         test.setId(rs.getInt(Query.ID));

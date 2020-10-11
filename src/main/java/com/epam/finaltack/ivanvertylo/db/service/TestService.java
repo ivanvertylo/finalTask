@@ -8,4 +8,5 @@ public interface TestService {
     int save(Test test);
     Test findTestById(Integer id);
     List<Test> findTestsByAuthor(String author);
+    void updateTest(Test test);
 }

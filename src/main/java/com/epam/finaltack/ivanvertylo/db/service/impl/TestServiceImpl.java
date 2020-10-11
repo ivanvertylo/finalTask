@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TestServiceImpl implements TestService {
 
-    TestRepository repository;
+    private final TestRepository repository;
 
     public TestServiceImpl() {
         this.repository = new TestRepositoryImpl();
@@ -28,5 +28,10 @@ public class TestServiceImpl implements TestService {
     @Override
     public List<Test> findTestsByAuthor(String author) {
         return repository.findTestsByAuthor(author);
+    }
+
+    @Override
+    public void updateTest(Test test) {
+        repository.updateTest(test);
     }
 }

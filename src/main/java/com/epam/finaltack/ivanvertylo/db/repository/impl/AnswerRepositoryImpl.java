@@ -64,6 +64,28 @@ public class AnswerRepositoryImpl  implements AnswerRepository {
         }
     }
 
+    @Override
+    public void updateAnswer(Answer answer) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_UPDATE_ANSWER);
+            prst.setString(1, answer.getName());
+            prst.setBoolean(2, answer.getRight());
+            prst.setInt(3, answer.getId());
+            prst.executeUpdate();
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst,con);
+        }
+    }
+
     private Answer extractAnswer(ResultSet rs) throws SQLException {
         Answer answer = new Answer();
         answer.setId(rs.getInt(Query.ID));

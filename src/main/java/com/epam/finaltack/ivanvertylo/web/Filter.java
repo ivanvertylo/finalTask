@@ -2,6 +2,7 @@ package com.epam.finaltack.ivanvertylo.web;
 
 import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
+import com.epam.finaltack.ivanvertylo.db.entity.Answer;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -10,10 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @WebFilter(urlPatterns = "/*")
 public class Filter implements javax.servlet.Filter {
@@ -27,9 +25,13 @@ public class Filter implements javax.servlet.Filter {
         privateCommand.put(Constant.COMMAND_CREATE_TEST, Arrays.asList(Constant.ROLE_ADMIN));
         privateCommand.put(Constant.COMMAND_FIND_LOGIN, Arrays.asList(Constant.ROLE_ADMIN));
         privateCommand.put(Constant.COMMAND_BLOCK_USER, Arrays.asList(Constant.ROLE_ADMIN));
+        privateCommand.put(Constant.COMMAND_UPDATE_TEST, Arrays.asList(Constant.ROLE_ADMIN));
+        privateCommand.put(Constant.COMMAND_SAVE_QUESTION, Arrays.asList(Constant.ROLE_ADMIN));
+        privateCommand.put(Constant.COMMAND_UPDATE_QUESTION, Arrays.asList(Constant.ROLE_ADMIN));
 
         privateUrl.put(Path.CONTROLLER_ADMIN_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
-        //privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
+        privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
+        //privateUrl.put(Path.CONTROLLER_TEST_PAGE, Arrays.asList(Constant.ROLE_USER,Constant.ROLE_ADMIN));
     }
 
     @Override

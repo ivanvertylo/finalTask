@@ -2,8 +2,6 @@ package com.epam.finaltack.ivanvertylo.web.redirect;
 
 import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
-import com.epam.finaltack.ivanvertylo.ServletUtil;
-import com.epam.finaltack.ivanvertylo.db.Query;
 import com.epam.finaltack.ivanvertylo.db.entity.Question;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
 import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
@@ -20,26 +18,23 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/editor/*")
-public class EditorPage extends HttpServlet {
+@WebServlet("/test")
+public class TestPage extends HttpServlet {
 
-    TestService testService = new TestServiceImpl();
-    QuestionService questionService = new QuestionServiceImpl();
+    private final TestService testService = new TestServiceImpl();
+    private final QuestionService questionService = new QuestionServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Test test = testService.findTestById(Integer.parseInt(req.getParameter(Constant.ID)));
-            HttpSession session = req.getSession();
-            if (test.getId() != null && test.getAuthor().equals(session.getAttribute(Constant.LOGIN))) {
+            if (test.getId() != null && test.getPublic()) {
                 List<Question> questions = questionService.findQuestionsByTestId(test.getId());
                 req.setAttribute(Constant.TEST_ID, test.getId());
                 req.setAttribute(Constant.TEST_NAME, test.getName());
-                req.setAttribute(Constant.TEST_SUBJECT, test.getSubject());
                 req.setAttribute(Constant.TEST_TIME, test.getTime());
-                req.setAttribute(Constant.TEST_PUBLIC, test.getPublic());
                 req.setAttribute("questions",questions);
-                getServletContext().getRequestDispatcher(Path.EDITOR_PAGE).forward(req, resp);
+                getServletContext().getRequestDispatcher(Path.TEST_PAGE).forward(req, resp);
             } else {
                 getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);
             }

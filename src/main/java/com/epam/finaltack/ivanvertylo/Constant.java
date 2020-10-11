@@ -11,6 +11,9 @@ public class Constant {
     public static final String COMMAND_FIND_LOGIN = "findLogin";
     public static final String COMMAND_BLOCK_USER = "blockUser";
     public static final String COMMAND_SAVE_QUESTION = "saveQuestion";
+    public static final String COMMAND_UPDATE_TEST = "updateTestInfo";
+    public static final String COMMAND_UPDATE_QUESTION = "updateQuestion";
+    public static final String COMMAND_CHECK_TEST = "checkTest";
 
     public static final String ID = "id";
 
@@ -26,9 +29,11 @@ public class Constant {
     public static final String TEST_SUBJECT = "testSubject";
     public static final String TEST_PUBLIC = "testPublic";
     public static final String TEST_TIME = "testTime";
+    public static final String TEST_AUTHOR = "testAuthor";
 
     public static final String ANSWER = "answer";
 
+    public static final String QUESTION_ID = "questionId";
     public static final String QUESTION_NAME = "questionName";
     public static final String QUESTION_POINT = "questionPoint";
 

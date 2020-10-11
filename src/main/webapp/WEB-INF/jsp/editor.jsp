@@ -1,4 +1,3 @@
-<%@ page import="com.epam.finaltack.ivanvertylo.db.Query" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
@@ -8,6 +7,7 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <form method="post" action="controller">
     <input type="hidden" name="command" value="updateTestInfo">
+    <input type="hidden" name="testId" value="${testId}">
     <label>
         Название
         <input type="text" name="testName" value="${testName}">
@@ -32,19 +32,25 @@
                  type="java.util.List<com.epam.finaltack.ivanvertylo.db.entity.Question>"/>
     <c:forEach var="item" items="${questions}">
         <li>
-                ${item.name}
-            <ul>
-                <c:forEach var="item2" items="${item.answers}">
-                    <li>
-                        <label>
-                                ${item2.name}
-                            <input type="checkbox" <c:if test="${item2.right == true}">checked</c:if>>
-                        </label>
-                    </li>
-                </c:forEach>
-            </ul>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="updateQuestion">
+                <input type="hidden" name="questionId" value="${item.id}">
+                <input type="text" name="questionName" value="${item.name}">
+                <ul>
+                    <c:forEach var="item2" items="${item.answers}">
+                        <li>
+                            <label>
+                                <input type="text" name="${item2.id}" value="${item2.name}">
+                                <input type="checkbox" name="${item2.id}" <c:if test="${item2.right == true}">checked</c:if>>
+                            </label>
+                        </li>
+                    </c:forEach>
+                </ul>
+                <button type="submit">Сохранить</button>
+            </form>
         </li>
     </c:forEach>
+</ul>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="saveQuestion">
         <input type="hidden" name="testId" value="${testId}">
@@ -62,7 +68,6 @@
         <div onclick="onClick()">Добавить вопрос</div>
         <button type="submit">Сохранить</button>
     </form>
-</ul>
 <script>
     function onClick() {
         $("#answerBlock").append('<input type="text" style="margin: 5px" name="answer"><div style="display:inline-block"><input type="hidden" name="answerRight" value="false"><input type="checkbox" onclick="checkBox(this)"></div><br>')

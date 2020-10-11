@@ -18,6 +18,9 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_FIND_LOGIN, new FindLogin());
         commands.put(Constant.COMMAND_BLOCK_USER, new BlockUser());
         commands.put(Constant.COMMAND_SAVE_QUESTION, new SaveQuestion());
+        commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
+        commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo());
+        commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest());
     }
 
     public Command get(String commandName) {

@@ -7,4 +7,6 @@ import java.util.List;
 public interface QuestionService {
     List<Question> findQuestionsByTestId(Integer testId);
     void saveQuestion(Question question);
+    void updateQuestion(Question question);
+    Question findQuestionById(Integer id);
 }

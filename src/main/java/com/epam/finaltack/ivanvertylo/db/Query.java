@@ -14,6 +14,11 @@ public class Query {
     public static final String SQL_FIND_QUESTIONS_BY_TEST_ID = "SELECT * FROM question WHERE test_id = ?;";
     public static final String SQL_SAVE_QUESTION = "INSERT INTO question(name, point, test_id) VALUES(?,?,?);";
     public static final String SQL_SAVE_ANSWER = "INSERT INTO answer(name, is_right, question_id) VALUES(?,?,?);";
+    public static final String SQL_UPDATE_ANSWER = "UPDATE answer SET name=?,is_right=? WHERE id=?";
+    public static final String SQL_UPDATE_QUESTION = "UPDATE question SET name=? WHERE id=?";
+    public static final String SQL_FIND_QUESTION_BY_ID = "SELECT * FROM question WHERE id = ?;";
+    public static final String SQL_UPDATE_TEST = "UPDATE test SET name=?,subject=?,is_public=?,time=? WHERE id=?";
+
 
     public static final String ID = "id";
     //USER
