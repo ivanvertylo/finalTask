@@ -1,5 +1,6 @@
 package com.epam.finaltack.ivanvertylo.db.service;
 
+import com.epam.finaltack.ivanvertylo.db.entity.CountSubjects;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
 
 import java.util.List;
@@ -9,4 +10,9 @@ public interface TestService {
     Test findTestById(Integer id);
     List<Test> findTestsByAuthor(String author);
     void updateTest(Test test);
+    List<Test> findAllTestNameSort(String subject, Integer pagination, String upDown, Integer offset);
+    List<Test> findAllTestByQuestionSort(String subject, Integer pagination, String upDown, Integer offset);
+    List<Test> findTestsByComplexitySort(String subject, Integer pagination, String upDown, Integer offset);
+    List<CountSubjects> findSubjectsCounts(String substr);
+    Integer getAllTestsCount();
 }

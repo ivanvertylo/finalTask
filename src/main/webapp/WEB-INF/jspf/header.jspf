@@ -1,5 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="com.epam.finaltack.ivanvertylo.Constant" %>
-<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
 <header>
@@ -26,7 +26,7 @@
                         </form>
                     </c:when>
                     <c:otherwise>
-                        <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                        <button id="loginReg" type="button" class="btn btn-outline-success" data-toggle="modal"
                                 data-target="#staticBackdrop">Вход | Регистрация
                         </button>
                     </c:otherwise>
@@ -46,24 +46,26 @@
                     </button>
                 </div>
                 <div class="modal-body login_area">
-                    <form action="controller" method="POST">
+                    <form action="controller" method="POST" style="display: flex; flex-direction: column;">
                         <input type="hidden" name="command" value="loginReg">
 
                         <label for="login">Login</label>
-                        <br>
-                        <input type="text" required="required" pattern="[A-Za-z0-9]+" name="login" id="login"/>
-                        <br>
+
+                        <input class="form-control" type="text" required="required" pattern="[A-Za-z0-9]+" name="login" id="login"/>
+
                         <label style="margin-top: 10px;" for="password">Password</label>
-                        <br>
-                        <input required="required" type="password"
-                               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*"
-                               title="Поле пароля: Минимум 8 символов, одна цифра, одна буква в верхнем регистре и одна в нижнем"
+
+                        <input class="form-control" required="required" type="password"
+                               pattern="[A-Za-z0-9]+"
                                name="password" id="password"/>
-                        <br>
-                        <label id="isNewLabel" class="is_new" for="isNew">У меня нет аккаунта
-                            <input type="checkbox" name="isNew" id="isNew">
+
+                        <input class="form-control" style="margin-top: 10px; display: none" type="password" pattern="[A-Za-z0-9]+" id="dblPassword"/>
+
+                        <label id="isNewLabel" class="is_new" for="isNew" style="display: flex; align-items: center; justify-content: space-between">
+                            <span>У меня нет аккаунта</span>
+                            <input style="transform: scale(1.5)" type="checkbox" name="isNew" id="isNew">
                         </label>
-                        <br>
+
                         <button id="enter" type="submit" class="btn btn-success login_submit">Войти</button>
                         <div id="check" style="display: none" class="btn btn-primary login_submit">Далее</div>
                     </form>
@@ -95,23 +97,22 @@
         </div>
     </div>
     <script>
-        let password;
         $("#isNew").click(function () {
             $("#check").toggle(this.checked);
             $("#enter").toggle(!this.checked);
+            $("#dblPassword").toggle(this.checked);
         })
         $("#check").click(function () {
-            if (password === $("#password").val()) {
+            if ($("#dblPassword").val() === $("#password").val()) {
                 $("#check").hide();
                 $("#enter").show();
                 $("#password").attr('readonly', true);
+                $("#dblPassword").attr('readonly', true);
                 $("#password").css("background-color", "lightgreen");
+                $("#dblPassword").css("background-color", "lightgreen");
             } else {
-                alert("Введите пароль еще раз")
-                $("#isNewLabel").hide()
-                password = $("#password").val()
-                $("#password").val("");
-                $("#check").text("Проверить пароль");
+                $("#password").css("background-color", "red");
+                $("#dblPassword").css("background-color", "red");
             }
 
         })

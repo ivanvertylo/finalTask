@@ -20,7 +20,7 @@
 }
 .is_new{
     float: right;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 .is_new input{
     vertical-align: middle;

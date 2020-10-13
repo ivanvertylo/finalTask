@@ -28,23 +28,25 @@ public class Filter implements javax.servlet.Filter {
         privateCommand.put(Constant.COMMAND_UPDATE_TEST, Arrays.asList(Constant.ROLE_ADMIN));
         privateCommand.put(Constant.COMMAND_SAVE_QUESTION, Arrays.asList(Constant.ROLE_ADMIN));
         privateCommand.put(Constant.COMMAND_UPDATE_QUESTION, Arrays.asList(Constant.ROLE_ADMIN));
+        privateCommand.put(Constant.COMMAND_CHECK_TEST, Arrays.asList(Constant.ROLE_ADMIN,Constant.ROLE_USER));
 
         privateUrl.put(Path.CONTROLLER_ADMIN_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
         privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
-        //privateUrl.put(Path.CONTROLLER_TEST_PAGE, Arrays.asList(Constant.ROLE_USER,Constant.ROLE_ADMIN));
+        privateUrl.put(Path.CONTROLLER_TEST_PAGE, Arrays.asList(Constant.ROLE_USER,Constant.ROLE_ADMIN));
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String url;
+        HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
+        HttpSession session = httpRequest.getSession();
         try {
             url = ((HttpServletRequest) servletRequest).getRequestURI().split("/")[1];
         }
         catch (Exception e){
             url = Path.CONTROLLER_MAIN_PAGE;
+            ((HttpServletResponse)servletResponse).sendRedirect(Path.CONTROLLER_MAIN_PAGE);
         }
-        HttpServletRequest httpRequest = (HttpServletRequest) servletRequest;
-        HttpSession session = httpRequest.getSession();
         String commandName = servletRequest.getParameter("command");
         if (commandName != null){
             if(privateCommand.get(commandName) == null || privateCommand.get(commandName).contains(session.getAttribute(Constant.ROLE))){

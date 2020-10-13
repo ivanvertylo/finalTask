@@ -21,6 +21,7 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
         commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo());
         commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest());
+        commands.put("findSubject", new FindSubject());
     }
 
     public Command get(String commandName) {

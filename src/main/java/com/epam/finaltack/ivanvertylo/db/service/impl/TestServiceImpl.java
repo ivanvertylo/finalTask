@@ -1,5 +1,6 @@
 package com.epam.finaltack.ivanvertylo.db.service.impl;
 
+import com.epam.finaltack.ivanvertylo.db.entity.CountSubjects;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
 import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.impl.TestRepositoryImpl;
@@ -33,5 +34,30 @@ public class TestServiceImpl implements TestService {
     @Override
     public void updateTest(Test test) {
         repository.updateTest(test);
+    }
+
+    @Override
+    public List<Test> findAllTestNameSort(String subject, Integer pagination, String upDown, Integer offset) {
+        return repository.findTestsByNameSort(subject,pagination,upDown,offset);
+    }
+
+    @Override
+    public List<Test> findAllTestByQuestionSort(String subject, Integer pagination, String upDown, Integer offset) {
+        return repository.findTestsByNumberOfQuestionSort(subject,pagination,upDown,offset);
+    }
+
+    @Override
+    public List<Test> findTestsByComplexitySort(String subject, Integer pagination, String upDown, Integer offset) {
+        return repository.findTestsByComplexitySort(subject,pagination,upDown,offset);
+    }
+
+    @Override
+    public List<CountSubjects> findSubjectsCounts(String substr) {
+        return repository.findSubjectsCounts(substr);
+    }
+
+    @Override
+    public Integer getAllTestsCount() {
+        return repository.getAllTestsCount();
     }
 }

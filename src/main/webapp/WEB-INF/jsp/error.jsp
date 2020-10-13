@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 <html>
 <c:set var="title" value="Главная" scope="page" />

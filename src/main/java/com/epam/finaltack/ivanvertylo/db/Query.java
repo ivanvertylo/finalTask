@@ -8,7 +8,7 @@ public class Query {
     public static final String SQL_SAVE_USER = "INSERT INTO user(login, password, username, role, is_blocked) VALUES(?,?,?,?,?);";
     public static final String SQL_SAVE_TEST = "INSERT INTO test(name, author, is_public) VALUES(?,?,?);";
     public static final String SQL_FIND_TEST_BY_ID = "SELECT * FROM test WHERE test.id = ?;";
-    public static final String SQL_FIND_TEST_BY_AUTHOR = "SELECT * FROM test WHERE test.author = ?;";
+    public static final String SQL_FIND_TEST_BY_AUTHOR = "SELECT * FROM test WHERE test.author = ? order by id desc;";
     public static final String SQL_UPDATE_USER = "UPDATE user SET login=?,username=?,role=?,is_blocked=? WHERE id=?";
     public static final String SQL_FIND_ANSWERS_BY_QUESTION_ID = "SELECT * FROM answer WHERE question_id = ?;";
     public static final String SQL_FIND_QUESTIONS_BY_TEST_ID = "SELECT * FROM question WHERE test_id = ?;";
@@ -18,6 +18,7 @@ public class Query {
     public static final String SQL_UPDATE_QUESTION = "UPDATE question SET name=? WHERE id=?";
     public static final String SQL_FIND_QUESTION_BY_ID = "SELECT * FROM question WHERE id = ?;";
     public static final String SQL_UPDATE_TEST = "UPDATE test SET name=?,subject=?,is_public=?,time=? WHERE id=?";
+    public static final String SQL_FIND_SUBJECTS_COUNTS = "select count(*), subject FROM test where locate(?,subject) group by subject";
 
 
     public static final String ID = "id";
