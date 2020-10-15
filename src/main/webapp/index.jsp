@@ -37,8 +37,11 @@
 <div class="sticky">
     <form id="setFilter" action="main" method="get">
         <div class="row">
-            <div class="col-md-12" style="text-align: center; margin-bottom: 15px">
-                <input oninput="onChange(this)" type="text" class="form-control" name="subject" placeholder="Предмет" style="width: 400px; display: inline" value="${subject}">
+            <div class="col-md-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
+                <div style="position: relative">
+                    <input id="subjectInput" oninput="onChange(this)" type="text" class="form-control" name="subject" placeholder="Предмет" style="width: 400px; display: inline" value="${subject}">
+                    <div id="sortBar" style="z-index: 1; position: absolute; top: 100%; left: 0; width: 100%; display: flex; flex-direction: column; background-color: lightgoldenrodyellow; text-align: center"></div>
+                </div>
             </div>
             <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end">
                 <select style="width: max-content" class="form-control" name="type">
@@ -110,9 +113,20 @@
             contentType: "application/json;charset=utf-8",
             success: function (response) {
                 const json = $.parseJSON(response)
-                console.log(json)
+                const myNode = document.getElementById("sortBar");
+                while (myNode.firstChild) {
+                    myNode.removeChild(myNode.firstChild);
+                }
+                $("#sortBar").show()
+                json.map((item)=>{
+                    $("#sortBar").append("<div style='padding: 15px; border-top: 1px solid gray'><span style='font-style: italic'>#</span><span onclick='selectSubject(this)' style='font-weight: bold; cursor: pointer;'>"+item.name+"</span></div>");
+                })
             }
         });
+    }
+    function selectSubject(e) {
+        $("#subjectInput").val(e.innerText);
+        $("#sortBar").hide();
     }
 </script>
 </body>

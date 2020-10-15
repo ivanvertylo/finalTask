@@ -28,12 +28,19 @@ public class TestPage extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Test test = testService.findTestById(Integer.parseInt(req.getParameter(Constant.ID)));
+            HttpSession session = req.getSession();
             if (test.getId() != null && test.getPublic()) {
                 List<Question> questions = questionService.findQuestionsByTestId(test.getId());
                 req.setAttribute(Constant.TEST_ID, test.getId());
                 req.setAttribute(Constant.TEST_NAME, test.getName());
                 req.setAttribute(Constant.TEST_TIME, test.getTime());
-                req.setAttribute("questions",questions);
+                Integer total = testService.getPoints((Integer)session.getAttribute("userId"),test.getId());
+                if (total == null){
+                    req.setAttribute("questions",questions);
+                }
+                else {
+                    req.setAttribute("total",total);
+                }
                 getServletContext().getRequestDispatcher(Path.TEST_PAGE).forward(req, resp);
             } else {
                 getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);

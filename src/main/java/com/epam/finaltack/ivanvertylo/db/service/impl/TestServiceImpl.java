@@ -6,6 +6,7 @@ import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.impl.TestRepositoryImpl;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestServiceImpl implements TestService {
@@ -53,11 +54,23 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public List<CountSubjects> findSubjectsCounts(String substr) {
-        return repository.findSubjectsCounts(substr);
+        substr = substr.trim();
+
+        return substr.equals("") ? new ArrayList<>() : repository.findSubjectsCounts(substr);
     }
 
     @Override
     public Integer getAllTestsCount() {
         return repository.getAllTestsCount();
+    }
+
+    @Override
+    public void setPoints(Integer idUser, Integer idTest, Integer points) {
+        repository.setPoints(idUser,idTest,points);
+    }
+
+    @Override
+    public Integer getPoints(Integer idUser, Integer idTest) {
+        return repository.getPoints(idUser,idTest);
     }
 }

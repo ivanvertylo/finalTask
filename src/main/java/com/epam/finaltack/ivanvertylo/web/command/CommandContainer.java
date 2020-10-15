@@ -22,6 +22,7 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo());
         commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest());
         commands.put("findSubject", new FindSubject());
+        commands.put("leaveTest", new LeaveTest());
     }
 
     public Command get(String commandName) {

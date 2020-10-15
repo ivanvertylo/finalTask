@@ -15,5 +15,6 @@ public interface TestRepository {
     List<CountSubjects> findSubjectsCounts(String substr);
     void updateTest(Test test);
     Integer getAllTestsCount();
-
+    void setPoints(Integer idUser, Integer idTest, Integer points);
+    Integer getPoints(Integer idUser, Integer idTest);
 }

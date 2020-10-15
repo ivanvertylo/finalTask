@@ -12,6 +12,7 @@ import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,11 @@ public class CheckTest extends Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        HttpSession session = request.getSession();
         int testId = Integer.parseInt(request.getParameter(Constant.TEST_ID));
+        if (testService.getPoints((Integer)session.getAttribute("userId"),testId) != null){
+            return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
+        }
         String [] reqAnswers = request.getParameterValues("answers");
         List<String> answers = reqAnswers != null ? Arrays.asList(reqAnswers) : new ArrayList<>();
         int totalPoints = 0;
@@ -52,7 +57,7 @@ public class CheckTest extends Command{
                 totalPoints += question.getPoint();
             }
         }
-        System.out.println((totalPoints*100)/maxPoints);
+        testService.setPoints((Integer) session.getAttribute("userId"),testId,(totalPoints*100)/maxPoints);
         return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
     }
 }

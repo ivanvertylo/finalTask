@@ -257,6 +257,57 @@ public class TestRepositoryImpl implements TestRepository {
         return requests;
     }
 
+    @Override
+    public void setPoints(Integer idUser, Integer idTest, Integer points) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_SET_POINTS);
+            prst.setInt(1, idUser);
+            prst.setInt(2, idTest);
+            prst.setInt(3, points);
+            prst.executeUpdate();
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+            LOGGER.error(e.getMessage());
+        } finally {
+            dbManager.close(prst,con);
+        }
+    }
+
+    @Override
+    public Integer getPoints(Integer idUser, Integer idTest) {
+        Integer requests = null;
+        ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_GET_POINTS);
+            prst.setInt(1, idUser);
+            prst.setInt(2, idTest);
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                requests = rs.getInt("points");
+            }
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+            LOGGER.error(e.getMessage());
+        } finally {
+            dbManager.close(prst,con,rs);
+        }
+        return requests;
+    }
+
     private Test extractTest(ResultSet rs) throws SQLException {
         Test test = new Test();
         test.setId(rs.getInt(Query.ID));

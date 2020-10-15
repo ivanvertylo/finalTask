@@ -27,33 +27,33 @@ public class MainPage extends HttpServlet {
             switch (req.getParameter("sort")) {
                 case "name":
                     setSort(Integer.parseInt(req.getParameter("pagination")),
-                            testService.findAllTestNameSort(ServletUtil.getUTF8(req,"subject"),Integer.parseInt(req.getParameter("pagination")),
+                            testService.findAllTestNameSort(req.getParameter("subject"),Integer.parseInt(req.getParameter("pagination")),
                                     req.getParameter("type"), req.getParameter("offset").equals("") ? 0
                                             : Integer.parseInt(req.getParameter("offset"))),
                             req.getParameter("offset").equals("") ? 0 : Integer.parseInt(req.getParameter("offset")),
                             req.getParameter("type"),
                             req.getParameter("sort"),
-                            ServletUtil.getUTF8(req,"subject"), req);
+                            req.getParameter("subject"), req);
                     break;
                 case "question":
                     setSort(Integer.parseInt(req.getParameter("pagination")),
-                            testService.findAllTestByQuestionSort(ServletUtil.getUTF8(req,"subject"),Integer.parseInt(req.getParameter("pagination")),
+                            testService.findAllTestByQuestionSort(req.getParameter("subject"),Integer.parseInt(req.getParameter("pagination")),
                                     req.getParameter("type"), req.getParameter("offset").equals("") ? 0
                                             : Integer.parseInt(req.getParameter("offset"))),
                             req.getParameter("offset").equals("") ? 0 : Integer.parseInt(req.getParameter("offset")),
                             req.getParameter("type"),
                             req.getParameter("sort"),
-                            ServletUtil.getUTF8(req,"subject"), req);
+                            req.getParameter("subject"), req);
                     break;
                 case "hard":
                     setSort(Integer.parseInt(req.getParameter("pagination")),
-                            testService.findTestsByComplexitySort(ServletUtil.getUTF8(req,"subject"),Integer.parseInt(req.getParameter("pagination")),
+                            testService.findTestsByComplexitySort(req.getParameter("subject"),Integer.parseInt(req.getParameter("pagination")),
                                     req.getParameter("type"), req.getParameter("offset").equals("") ? 0
                                             : Integer.parseInt(req.getParameter("offset"))),
                             req.getParameter("offset").equals("") ? 0 : Integer.parseInt(req.getParameter("offset")),
                             req.getParameter("type"),
                             req.getParameter("sort"),
-                            ServletUtil.getUTF8(req,"subject"), req);
+                            req.getParameter("subject"), req);
                     break;
             }
         }
