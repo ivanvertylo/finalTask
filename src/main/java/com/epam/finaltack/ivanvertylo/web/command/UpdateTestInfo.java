@@ -26,7 +26,7 @@ public class UpdateTestInfo extends Command{
         test.setName(ServletUtil.getUTF8(request,Constant.TEST_NAME));
         test.setSubject(ServletUtil.getUTF8(request,Constant.TEST_SUBJECT));
         test.setTime(Integer.parseInt(request.getParameter(Constant.TEST_TIME)));
-        test.setPublic(request.getParameter(Constant.TEST_PUBLIC) != null);
+        test.setIsPublic(request.getParameter(Constant.TEST_PUBLIC) != null);
         testService.updateTest(test);
         return Path.CONTROLLER_EDITOR_PAGE+"?id="+test.getId();
     }

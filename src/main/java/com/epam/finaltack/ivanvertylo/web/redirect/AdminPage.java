@@ -23,7 +23,6 @@ public class AdminPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        String role = (String) session.getAttribute(Constant.ROLE);
         List<Test> tests = testService.findTestsByAuthor(session.getAttribute(Constant.LOGIN).toString());
         req.setAttribute("tests",tests);
         getServletContext().getRequestDispatcher(Path.ADMIN_PAGE).forward(req, resp);

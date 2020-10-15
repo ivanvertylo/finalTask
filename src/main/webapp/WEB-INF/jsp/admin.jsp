@@ -26,7 +26,7 @@
     <jsp:useBean id="tests" scope="request" type="java.util.List<com.epam.finaltack.ivanvertylo.db.entity.Test>"/>
     <c:forEach var="item" items="${tests}">
         <li>
-            <a href="/editor?id=${item.id}">${item.name}</a>
+            <a <c:if test='${item.isPublic != true}'>style="color: red"</c:if> href="/editor?id=${item.id}">${item.name}</a>
         </li>
     </c:forEach>
 </ul>

@@ -16,16 +16,16 @@
     .nav label{
         margin:0;
     }
-    .row a{
+    .tests a{
         -webkit-transition: .3s;
     }
-    .row a:hover{
+    .tests a:hover{
         background-color: lightgreen;
         color:white !important;
         padding: 30px !important;
         font-size: x-large;
     }
-    .row a:hover .mySmall{
+    .tests a:hover .mySmall{
         opacity: 1 !important;
         margin-right: 10px !important;
         font-size: initial;
@@ -87,7 +87,7 @@
     <hr style="margin-bottom: 0">
 </div>
 <div class="container">
-    <div class="row">
+    <div class="row tests">
         <c:forEach items="${tests}" var="item">
             <a <c:if test="${role != null}">href="test?id=${item.id}"</c:if> <c:if test="${role == null}">onclick="register()" </c:if> class="col-md-12" style="display: flex; align-items: center; justify-content: space-between; text-decoration: none;margin-bottom: 10px; padding: 15px; border-radius: 3px; border: 2px #007bff solid; color: #007bff">
                     <span>${item.name}</span>

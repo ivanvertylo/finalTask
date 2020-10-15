@@ -59,6 +59,9 @@ public class LoginReg extends Command {
                 HttpSession httpSession = request.getSession();
                 httpSession.setAttribute(Constant.ROLE, user.getRole());
                 httpSession.setAttribute(Constant.USERNAME, user.getUsername());
+                httpSession.setAttribute(Constant.LOGIN, user.getLogin());
+                httpSession.setAttribute("userId", user.getId());
+
             }
         }
         return setErrorReturn(Path.CONTROLLER_MAIN_PAGE,error);

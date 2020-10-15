@@ -96,7 +96,7 @@
     </c:when>
     <c:otherwise>
         <h1 style="display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%">
-            <span>Ваш результат за тест </span><b>${testName}</b><span> равен: </span><b>${total}</b>
+            <span>Ваш результат за тест</span>&nbsp;<b>"${testName}"</b>&nbsp;<span>равен:</span>&nbsp;<b>${total}%</b>
         </h1>
     </c:otherwise>
 </c:choose>

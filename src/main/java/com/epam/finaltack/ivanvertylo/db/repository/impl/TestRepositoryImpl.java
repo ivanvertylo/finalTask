@@ -26,7 +26,7 @@ public class TestRepositoryImpl implements TestRepository {
             prst = con.prepareStatement(Query.SQL_SAVE_TEST, Statement.RETURN_GENERATED_KEYS);
             prst.setString(1, test.getName());
             prst.setString(2, test.getAuthor());
-            prst.setBoolean(3, test.getPublic());
+            prst.setBoolean(3, test.getIsPublic());
             if (prst.executeUpdate() > 0){
                 try(ResultSet resultSet = prst.getGeneratedKeys()){
                     if (resultSet.next()){
@@ -111,7 +111,7 @@ public class TestRepositoryImpl implements TestRepository {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" order by name "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test "+substr+" where is_public = true order by name "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
@@ -138,7 +138,7 @@ public class TestRepositoryImpl implements TestRepository {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" order by (select count(*) from question where question.test_id = test.id) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test "+substr+" where is_public = true order by (select count(*) from question where question.test_id = test.id) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
@@ -165,7 +165,7 @@ public class TestRepositoryImpl implements TestRepository {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+"  order by -1*(test.time/(select count(*) from question where question.test_id = test.id)) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test "+substr+" where is_public = true order by -1*(test.time/(select count(*) from question where question.test_id = test.id)) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
@@ -218,7 +218,7 @@ public class TestRepositoryImpl implements TestRepository {
             prst = con.prepareStatement(Query.SQL_UPDATE_TEST);
             prst.setString(1, test.getName());
             prst.setString(2, test.getSubject());
-            prst.setBoolean(3, test.getPublic());
+            prst.setBoolean(3, test.getIsPublic());
             prst.setInt(4, test.getTime());
             prst.setInt(5, test.getId());
             prst.executeUpdate();
@@ -314,7 +314,7 @@ public class TestRepositoryImpl implements TestRepository {
         test.setName(rs.getString(Query.TEST_NAME));
         test.setSubject(rs.getString(Query.TEST_SUBJECT));
         test.setAuthor(rs.getString(Query.TEST_AUTHOR));
-        test.setPublic(rs.getBoolean(Query.TEST_PUBLIC));
+        test.setIsPublic(rs.getBoolean(Query.TEST_PUBLIC));
         test.setTime(rs.getInt(Query.TEST_TIME));
         return test;
     }

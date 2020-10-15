@@ -29,7 +29,7 @@ public class TestPage extends HttpServlet {
         try {
             Test test = testService.findTestById(Integer.parseInt(req.getParameter(Constant.ID)));
             HttpSession session = req.getSession();
-            if (test.getId() != null && test.getPublic()) {
+            if (test.getId() != null && test.getIsPublic()) {
                 List<Question> questions = questionService.findQuestionsByTestId(test.getId());
                 req.setAttribute(Constant.TEST_ID, test.getId());
                 req.setAttribute(Constant.TEST_NAME, test.getName());

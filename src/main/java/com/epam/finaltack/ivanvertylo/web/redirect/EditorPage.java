@@ -37,7 +37,7 @@ public class EditorPage extends HttpServlet {
                 req.setAttribute(Constant.TEST_NAME, test.getName());
                 req.setAttribute(Constant.TEST_SUBJECT, test.getSubject());
                 req.setAttribute(Constant.TEST_TIME, test.getTime());
-                req.setAttribute(Constant.TEST_PUBLIC, test.getPublic());
+                req.setAttribute(Constant.TEST_PUBLIC, test.getIsPublic());
                 req.setAttribute("questions",questions);
                 getServletContext().getRequestDispatcher(Path.EDITOR_PAGE).forward(req, resp);
             } else {

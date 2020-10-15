@@ -3,7 +3,6 @@ package com.epam.finaltack.ivanvertylo.web.command;
 import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.ServletUtil;
-import com.epam.finaltack.ivanvertylo.db.Query;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
@@ -29,7 +28,7 @@ public class CreateTest extends Command {
         Test test = new Test();
         test.setName(ServletUtil.getUTF8(request, Constant.TEST_NAME));
         test.setAuthor((String) session.getAttribute(Constant.LOGIN));
-        test.setPublic(false);
+        test.setIsPublic(false);
         int testId = testService.save(test);
         return Path.CONTROLLER_EDITOR_PAGE + "?" + Constant.ID + "=" + testId;
     }
