@@ -2,6 +2,7 @@ package com.epam.finaltack.ivanvertylo.db.repository;
 
 import com.epam.finaltack.ivanvertylo.db.entity.CountSubjects;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
+import com.epam.finaltack.ivanvertylo.db.entity.TestPoints;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface TestRepository {
     Integer getAllTestsCount();
     void setPoints(Integer idUser, Integer idTest, Integer points);
     Integer getPoints(Integer idUser, Integer idTest);
+    List<TestPoints> findTestPointsByUserId(Integer id);
 }

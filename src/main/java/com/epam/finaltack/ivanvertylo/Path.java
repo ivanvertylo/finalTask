@@ -9,6 +9,7 @@ public class Path {
     public static final String CONTROLLER_EDITOR_PAGE = "editor";
     public static final String CONTROLLER_ERROR_PAGE = "error";
     public static final String CONTROLLER_TEST_PAGE = "test";
+    public static final String CONTROLLER_PROFILE_PAGE = "profile";
 
 
     public static final String MAIN_PAGE = "/index.jsp";
@@ -16,6 +17,7 @@ public class Path {
     public static final String ERROR_PAGE = "/WEB-INF/jsp/error.jsp";
     public static final String EDITOR_PAGE = "/WEB-INF/jsp/editor.jsp";
     public static final String TEST_PAGE = "/WEB-INF/jsp/test.jsp";
+    public static final String PROFILE_PAGE = "/WEB-INF/jsp/profile.jsp";
 
     public static final String NO_REDIRECT = "noRedirect";
 }

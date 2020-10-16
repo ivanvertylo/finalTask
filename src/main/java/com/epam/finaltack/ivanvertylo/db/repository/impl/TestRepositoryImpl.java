@@ -4,6 +4,7 @@ import com.epam.finaltack.ivanvertylo.db.DBManager;
 import com.epam.finaltack.ivanvertylo.db.Query;
 import com.epam.finaltack.ivanvertylo.db.entity.CountSubjects;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
+import com.epam.finaltack.ivanvertylo.db.entity.TestPoints;
 import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import org.apache.log4j.Logger;
 
@@ -308,6 +309,33 @@ public class TestRepositoryImpl implements TestRepository {
         return requests;
     }
 
+    @Override
+    public List<TestPoints> findTestPointsByUserId(Integer id) {
+        List<TestPoints> requests = new ArrayList<>();
+        ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_FIND_TEST_POINTS_BY_USER_ID);
+            prst.setInt(1, id);
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                requests.add(extractTestPoints(rs));
+            }
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+            LOGGER.error(e.getMessage());
+        } finally {
+            dbManager.close(prst,con,rs);
+        }
+        return requests;
+    }
+
     private Test extractTest(ResultSet rs) throws SQLException {
         Test test = new Test();
         test.setId(rs.getInt(Query.ID));
@@ -323,5 +351,11 @@ public class TestRepositoryImpl implements TestRepository {
         countSubjects.setCount(rs.getInt("count(*)"));
         countSubjects.setName(rs.getString("subject"));
         return countSubjects;
+    }
+    private TestPoints extractTestPoints(ResultSet rs) throws SQLException {
+        TestPoints testPoints = new TestPoints();
+        testPoints.setTest(extractTest(rs));
+        testPoints.setPoints(rs.getInt("points"));
+        return testPoints;
     }
 }

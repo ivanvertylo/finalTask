@@ -18,8 +18,8 @@
                 </c:if>
                 <c:choose>
                     <c:when test="${role != null}">
-                        <button type="button" class="btn btn-success"><%=session.getAttribute("username")%>
-                        </button>
+                        <a href="${pageContext.request.contextPath}/profile?user=${login}" type="button" class="btn btn-success"><%=session.getAttribute("username")%>
+                        </a>
                         <form style="display: inline-block; margin: 0;" method="post" action="controller">
                             <input type="hidden" name="command" value="logout">
                             <button type="submit" class="btn btn-outline-danger">Выход</button>

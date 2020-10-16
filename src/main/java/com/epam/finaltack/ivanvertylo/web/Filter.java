@@ -33,6 +33,7 @@ public class Filter implements javax.servlet.Filter {
         privateUrl.put(Path.CONTROLLER_ADMIN_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
         privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
         privateUrl.put(Path.CONTROLLER_TEST_PAGE, Arrays.asList(Constant.ROLE_USER,Constant.ROLE_ADMIN));
+        privateUrl.put(Path.CONTROLLER_PROFILE_PAGE, Arrays.asList(Constant.ROLE_USER,Constant.ROLE_ADMIN));
     }
 
     @Override

@@ -2,9 +2,11 @@ package com.epam.finaltack.ivanvertylo.db.service.impl;
 
 import com.epam.finaltack.ivanvertylo.db.entity.CountSubjects;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
+import com.epam.finaltack.ivanvertylo.db.entity.TestPoints;
 import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.impl.TestRepositoryImpl;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
+import com.epam.finaltack.ivanvertylo.db.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,5 +74,10 @@ public class TestServiceImpl implements TestService {
     @Override
     public Integer getPoints(Integer idUser, Integer idTest) {
         return repository.getPoints(idUser,idTest);
+    }
+
+    @Override
+    public List<TestPoints> findTestPointsByUserLogin(String login) {
+        return repository.findTestPointsByUserId(new UserServiceImpl().findUserByLogin(login).getId());
     }
 }
