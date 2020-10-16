@@ -28,7 +28,7 @@ public class CheckTest extends Command{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         int testId = Integer.parseInt(request.getParameter(Constant.TEST_ID));
-        if (testService.getPoints((Integer)session.getAttribute("userId"),testId) != null){
+        if (testService.getPoints((Integer)session.getAttribute("userId"),testId) != null && testService.getPoints((Integer)session.getAttribute("userId"),testId) != -1){
             return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
         }
         String [] reqAnswers = request.getParameterValues("answers");

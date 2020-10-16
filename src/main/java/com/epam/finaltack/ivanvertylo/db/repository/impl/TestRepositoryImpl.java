@@ -266,10 +266,15 @@ public class TestRepositoryImpl implements TestRepository {
         try {
             con = dbManager.getConnection();
             con.setAutoCommit(false);
-            prst = con.prepareStatement(Query.SQL_SET_POINTS);
-            prst.setInt(1, idUser);
-            prst.setInt(2, idTest);
-            prst.setInt(3, points);
+            if (getPoints(idUser,idTest) == null){
+                prst = con.prepareStatement(Query.SQL_SET_POINTS);
+            }
+            else {
+                prst = con.prepareStatement(Query.SQL_UPDATE_POINTS);
+            }
+            prst.setInt(1,points);
+            prst.setInt(2, idUser);
+            prst.setInt(3, idTest);
             prst.executeUpdate();
             con.commit();
 

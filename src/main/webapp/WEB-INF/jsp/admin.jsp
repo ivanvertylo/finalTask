@@ -10,7 +10,7 @@
     <input type="text" name="testName">
     <button type="submit">Создать</button>
 </form>
-<div>
+<div style="display: flex">
     <label>
         Поиск пользователя:
         <input type="text" oninput="onChange(this)">
@@ -21,6 +21,7 @@
         <label for="findUsername">Username:</label><input type="text" style="border: none" readonly id="findUsername" name="username">
         <button disabled id="blockUser" type="submit">---</button>
     </form>
+    <a style="display: none" id="profileUser">Profile</a>
 </div>
 <ul>
     <jsp:useBean id="tests" scope="request" type="java.util.List<com.epam.finaltack.ivanvertylo.db.entity.Test>"/>
@@ -44,8 +45,11 @@
                     $("#findUsername").val(json.username);
                     $("#blockUser").prop('disabled', false);
                     $("#blockUser").html(json.isBlocked === true? "Разблокировать":"Заблокировать")
+                    $("#profileUser").show();
+                    $("#profileUser").attr("href", "/profile?user="+json.login)
                 }
                 else {
+                    $("#profileUser").hide();
                     $("#blockUser").prop('disabled', true);
                     $("#findLogin").val("");
                     $("#findUsername").val("");

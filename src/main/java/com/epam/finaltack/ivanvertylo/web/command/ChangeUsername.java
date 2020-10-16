@@ -21,8 +21,15 @@ public class ChangeUsername extends Command
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User user = userService.findUserByLogin(session.getAttribute(Constant.LOGIN).toString());
+        if (user.getRole().equals(Constant.ROLE_ADMIN)){
+            user = userService.findUserByLogin(request.getParameter("user"));
+
+        }
         user.setUsername(ServletUtil.getUTF8(request,"username"));
         userService.updateUser(user);
+        if (user.getLogin().equals(session.getAttribute(Constant.LOGIN))){
+            session.setAttribute(Constant.USERNAME,user.getUsername());
+        }
         return Path.CONTROLLER_PROFILE_PAGE+"?user="+user.getLogin();
     }
 }

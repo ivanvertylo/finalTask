@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 <c:choose>
-    <c:when test="${total == null}">
+    <c:when test="${total == null || total == -1}">
         <div style="position: absolute; top: 0; left: 0">
             <h1 id="timer">
 

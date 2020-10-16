@@ -19,7 +19,8 @@ public class Query {
     public static final String SQL_FIND_QUESTION_BY_ID = "SELECT * FROM question WHERE id = ?;";
     public static final String SQL_UPDATE_TEST = "UPDATE test SET name=?,subject=?,is_public=?,time=? WHERE id=?";
     public static final String SQL_FIND_SUBJECTS_COUNTS = "select count(*), subject FROM test where locate(?,subject) group by subject";
-    public static final String SQL_SET_POINTS = "INSERT INTO user_test(user_id, test_id, points) VALUES(?,?,?);";
+    public static final String SQL_SET_POINTS = "INSERT INTO user_test(points, user_id, test_id) VALUES(?,?,?);";
+    public static final String SQL_UPDATE_POINTS = "UPDATE user_test SET points = ? WHERE user_id = ? AND test_id = ?";
     public static final String SQL_GET_POINTS = "SELECT points FROM user_test where user_id = ? and test_id = ?;";
     public static final String SQL_FIND_TEST_POINTS_BY_USER_ID = "SELECT * FROM user_test, test where test_id = id and user_id = ?;";
 
