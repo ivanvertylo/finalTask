@@ -103,7 +103,7 @@ public class TestRepositoryImpl implements TestRepository {
     @Override
     public List<Test> findTestsByNameSort(String subject, Integer pagination, String upDown, Integer offset) {
         List<Test> requests = new ArrayList<>();
-        String substr = !subject.equals("") ? "WHERE subject='"+subject+"'" : "";
+        String substr = !subject.equals("") ? "WHERE subject='"+subject+"' AND" : "where";
         ResultSet rs = null;
         Connection con = null;
         Statement st = null;
@@ -112,7 +112,7 @@ public class TestRepositoryImpl implements TestRepository {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" where is_public = true order by name "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test "+substr+" is_public = true order by name "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
@@ -133,13 +133,13 @@ public class TestRepositoryImpl implements TestRepository {
         ResultSet rs = null;
         Connection con = null;
         Statement st = null;
-        String substr = !subject.equals("") ? "WHERE subject='"+subject+"'" : "";
+        String substr = !subject.equals("") ? "WHERE subject='"+subject+"' AND" : "where";
         DBManager dbManager = DBManager.getInstance();
         try {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" where is_public = true order by (select count(*) from question where question.test_id = test.id) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test "+substr+"  is_public = true order by (select count(*) from question where question.test_id = test.id) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
@@ -159,14 +159,14 @@ public class TestRepositoryImpl implements TestRepository {
         List<Test> requests = new ArrayList<>();
         ResultSet rs = null;
         Connection con = null;
-        String substr = !subject.equals("") ? "WHERE subject='"+subject+"'" : "";
+        String substr = !subject.equals("") ? "WHERE subject='"+subject+"' AND" : "where";
         Statement st = null;
         DBManager dbManager = DBManager.getInstance();
         try {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" where is_public = true order by -1*(test.time/(select count(*) from question where question.test_id = test.id)) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test "+substr+" is_public = true order by -1*(test.time/(select count(*) from question where question.test_id = test.id)) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }

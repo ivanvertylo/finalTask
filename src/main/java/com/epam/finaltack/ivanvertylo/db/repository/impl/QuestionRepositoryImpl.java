@@ -123,6 +123,26 @@ public class QuestionRepositoryImpl implements QuestionRepository {
         return requests;
     }
 
+    @Override
+    public void deleteQuestion(Integer id) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_DELETE_QUESTION);
+            prst.setInt(1, id);
+            prst.executeUpdate();
+            con.commit();
+
+        } catch (Exception e) {
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst,con);
+        }
+    }
+
     private Question extractQuestion(ResultSet rs) throws SQLException {
         Question question = new Question();
         question.setId(rs.getInt(Query.ID));

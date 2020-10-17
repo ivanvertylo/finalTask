@@ -9,4 +9,5 @@ public interface QuestionRepository {
     int saveQuestion(Question question);
     void updateQuestion(Question question);
     Question findQuestionById(Integer questionId);
+    void deleteQuestion(Integer id);
 }

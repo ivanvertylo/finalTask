@@ -9,4 +9,5 @@ public interface QuestionService {
     void saveQuestion(Question question);
     void updateQuestion(Question question);
     Question findQuestionById(Integer id);
+    void deleteQuestion(Integer id);
 }

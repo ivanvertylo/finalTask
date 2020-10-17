@@ -48,6 +48,12 @@
                 </ul>
                 <button type="submit">Сохранить</button>
             </form>
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="deleteQuestion">
+                <input type="hidden" name="questionId" value="${item.id}">
+                <input type="hidden" name="testId" value="${testId}">
+                <button type="submit">Удалить</button>
+            </form>
         </li>
     </c:forEach>
 </ul>

@@ -25,6 +25,8 @@ public class CommandContainer {
         commands.put("leaveTest", new LeaveTest());
         commands.put("changeUsername", new ChangeUsername());
         commands.put("deletePoints", new DeletePoints());
+        commands.put("deleteQuestion", new DeleteQuestion());
+        commands.put("changePassword", new ChangePassword());
     }
 
     public Command get(String commandName) {

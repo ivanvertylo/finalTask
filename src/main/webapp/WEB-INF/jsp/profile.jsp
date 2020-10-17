@@ -38,7 +38,7 @@
     <script>
         function onClick() {
             debugger
-            if ($("#changeInputPassword").val() === $("#dblChangeInputPassword").val()){
+            if ($("#changeInputPassword").val().trim() !== "" && $("#changeInputPassword").val() === $("#dblChangeInputPassword").val()){
                 $("#changePassword").submit();
             }
             else {

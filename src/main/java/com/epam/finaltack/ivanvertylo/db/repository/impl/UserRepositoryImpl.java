@@ -84,7 +84,8 @@ public class UserRepositoryImpl implements UserRepository {
             prst.setString(2, user.getUsername());
             prst.setString(3, user.getRole());
             prst.setBoolean(4, user.getBlocked());
-            prst.setInt(5, user.getId());
+            prst.setString(5, DigestUtils.md5Hex(user.getPassword()));
+            prst.setInt(6, user.getId());
             prst.executeUpdate();
             con.commit();
 

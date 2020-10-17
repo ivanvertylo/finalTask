@@ -9,7 +9,7 @@ public class Query {
     public static final String SQL_SAVE_TEST = "INSERT INTO test(name, author, is_public) VALUES(?,?,?);";
     public static final String SQL_FIND_TEST_BY_ID = "SELECT * FROM test WHERE test.id = ?;";
     public static final String SQL_FIND_TEST_BY_AUTHOR = "SELECT * FROM test WHERE test.author = ? order by id desc;";
-    public static final String SQL_UPDATE_USER = "UPDATE user SET login=?,username=?,role=?,is_blocked=? WHERE id=?";
+    public static final String SQL_UPDATE_USER = "UPDATE user SET login=?,username=?,role=?,is_blocked=?, password = ? WHERE id=?";
     public static final String SQL_FIND_ANSWERS_BY_QUESTION_ID = "SELECT * FROM answer WHERE question_id = ?;";
     public static final String SQL_FIND_QUESTIONS_BY_TEST_ID = "SELECT * FROM question WHERE test_id = ?;";
     public static final String SQL_SAVE_QUESTION = "INSERT INTO question(name, point, test_id) VALUES(?,?,?);";
@@ -23,6 +23,7 @@ public class Query {
     public static final String SQL_UPDATE_POINTS = "UPDATE user_test SET points = ? WHERE user_id = ? AND test_id = ?";
     public static final String SQL_GET_POINTS = "SELECT points FROM user_test where user_id = ? and test_id = ?;";
     public static final String SQL_FIND_TEST_POINTS_BY_USER_ID = "SELECT * FROM user_test, test where test_id = id and user_id = ?;";
+    public static final String SQL_DELETE_QUESTION = "DELETE FROM question WHERE id = ?";
 
     public static final String ID = "id";
     //USER

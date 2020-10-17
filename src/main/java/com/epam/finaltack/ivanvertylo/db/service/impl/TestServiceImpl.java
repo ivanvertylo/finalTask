@@ -6,7 +6,6 @@ import com.epam.finaltack.ivanvertylo.db.entity.TestPoints;
 import com.epam.finaltack.ivanvertylo.db.repository.TestRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.impl.TestRepositoryImpl;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
-import com.epam.finaltack.ivanvertylo.db.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
