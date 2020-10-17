@@ -2,14 +2,21 @@
 <%@ page import="com.epam.finaltack.ivanvertylo.Constant" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
 
+<fmt:setLocale value="${currentLocale}" scope="session"/>
+<fmt:setBundle basename="resources"/>
+
 <header>
+    <div style="position: absolute; top: 0; right: 0">
+        <a href="controller?command=changeLocale&locale=ru">RU</a>
+        <a href="controller?command=changeLocale&locale=en">EN</a>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-md-4">
                 <img class="nav_bar_logo" src="img/QuickTest.png" alt="Logo">
             </div>
             <div class="col-md-8 nav_bar_btn">
-                <a href="${pageContext.request.contextPath}/main" type="button" class="btn btn-primary">Тесты</a>
+                <a href="${pageContext.request.contextPath}/main" type="button" class="btn btn-primary"><fmt:message key="header_tests"/></a>
                 <c:if test="${role == 'admin'}">
                     <form style="display: inline-block; margin: 0;" method="post" action="controller">
                         <input type="hidden" name="command" value="admin">

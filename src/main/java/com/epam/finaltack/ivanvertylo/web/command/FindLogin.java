@@ -13,11 +13,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class FindLogin extends Command {
-
     private final UserService userService;
 
-    public FindLogin() {
-        userService = new UserServiceImpl();
+    public FindLogin(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class FindLogin extends Command {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Gson gson = new Gson();
-        PrintWriter printWriter =response.getWriter();
+        PrintWriter printWriter = response.getWriter();
         printWriter.write(gson.toJson(userService.findUserByLogin(request.getParameter(Constant.LOGIN))));
         printWriter.flush();
         return Path.NO_REDIRECT;

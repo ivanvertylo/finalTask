@@ -1,6 +1,7 @@
 package com.epam.finaltack.ivanvertylo.web.command;
 
 import com.epam.finaltack.ivanvertylo.Constant;
+import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,7 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_LOGOUT, new Logout());
         commands.put(Constant.COMMAND_ADMIN, new Admin());
         commands.put(Constant.COMMAND_CREATE_TEST, new CreateTest());
-        commands.put(Constant.COMMAND_FIND_LOGIN, new FindLogin());
+        commands.put(Constant.COMMAND_FIND_LOGIN, new FindLogin(new UserServiceImpl()));
         commands.put(Constant.COMMAND_BLOCK_USER, new BlockUser());
         commands.put(Constant.COMMAND_SAVE_QUESTION, new SaveQuestion());
         commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
@@ -27,6 +28,7 @@ public class CommandContainer {
         commands.put("deletePoints", new DeletePoints());
         commands.put("deleteQuestion", new DeleteQuestion());
         commands.put("changePassword", new ChangePassword());
+        commands.put("changeLocale", new ChangeLocale());
     }
 
     public Command get(String commandName) {
