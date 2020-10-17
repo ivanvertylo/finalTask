@@ -22,10 +22,10 @@ public class ChangeUsername extends Command
         HttpSession session = request.getSession();
         User user = userService.findUserByLogin(session.getAttribute(Constant.LOGIN).toString());
         if (user.getRole().equals(Constant.ROLE_ADMIN)){
-            user = userService.findUserByLogin(request.getParameter("user"));
+            user = userService.findUserByLogin(request.getParameter(Constant.USER));
 
         }
-        user.setUsername(ServletUtil.getUTF8(request,"username"));
+        user.setUsername(ServletUtil.getUTF8(request,Constant.USERNAME));
         userService.updateUser(user);
         if (user.getLogin().equals(session.getAttribute(Constant.LOGIN))){
             session.setAttribute(Constant.USERNAME,user.getUsername());

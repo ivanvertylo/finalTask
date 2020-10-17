@@ -23,6 +23,9 @@ public class Constant {
     public static final String ROLE = "role";
     public static final String USERNAME = "username";
 
+    public static final String USER = "user";
+    public static final String USER_ID = "userId";
+    public static final String USER_LOGIN = "userLogin";
 
     public static final String TEST_ID = "testId";
     public static final String TEST_NAME = "testName";

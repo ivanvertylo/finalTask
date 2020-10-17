@@ -28,7 +28,7 @@ public class CheckTest extends Command{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         int testId = Integer.parseInt(request.getParameter(Constant.TEST_ID));
-        if (testService.getPoints((Integer)session.getAttribute("userId"),testId) != null && testService.getPoints((Integer)session.getAttribute("userId"),testId) != -1){
+        if (testService.getPoints((Integer)session.getAttribute(Constant.USER_ID),testId) != null && testService.getPoints((Integer)session.getAttribute(Constant.USER_ID),testId) != -1){
             return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
         }
         String [] reqAnswers = request.getParameterValues("answers");
@@ -57,7 +57,7 @@ public class CheckTest extends Command{
                 totalPoints += question.getPoint();
             }
         }
-        testService.setPoints((Integer) session.getAttribute("userId"),testId,(totalPoints*100)/maxPoints);
+        testService.setPoints((Integer) session.getAttribute(Constant.USER_ID),testId,(totalPoints*100)/maxPoints);
         return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
     }
 }

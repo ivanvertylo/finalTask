@@ -38,7 +38,7 @@ public class LoginReg extends Command {
                     httpSession.setAttribute(Constant.ROLE, user.getRole());
                     httpSession.setAttribute(Constant.USERNAME, user.getUsername());
                     httpSession.setAttribute(Constant.LOGIN, user.getLogin());
-                    httpSession.setAttribute("userId", user.getId());
+                    httpSession.setAttribute(Constant.USER_ID, user.getId());
                 }
                 else {
                     error = Constant.ERROR_BLOCKED;
@@ -60,7 +60,7 @@ public class LoginReg extends Command {
                 httpSession.setAttribute(Constant.ROLE, user.getRole());
                 httpSession.setAttribute(Constant.USERNAME, user.getUsername());
                 httpSession.setAttribute(Constant.LOGIN, user.getLogin());
-                httpSession.setAttribute("userId", user.getId());
+                httpSession.setAttribute(Constant.USER_ID, user.getId());
 
             }
         }

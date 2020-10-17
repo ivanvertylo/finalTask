@@ -20,7 +20,7 @@
                 <c:if test="${role == 'admin'}">
                     <form style="display: inline-block; margin: 0;" method="post" action="controller">
                         <input type="hidden" name="command" value="admin">
-                        <button type="submit" class="btn btn-outline-danger">Admin</button>
+                        <button type="submit" class="btn btn-outline-danger"><fmt:message key="header_admin"/></button>
                     </form>
                 </c:if>
                 <c:choose>
@@ -29,12 +29,12 @@
                         </a>
                         <form style="display: inline-block; margin: 0;" method="post" action="controller">
                             <input type="hidden" name="command" value="logout">
-                            <button type="submit" class="btn btn-outline-danger">Выход</button>
+                            <button type="submit" class="btn btn-outline-danger"><fmt:message key="header_exit"/></button>
                         </form>
                     </c:when>
                     <c:otherwise>
                         <button id="loginReg" type="button" class="btn btn-outline-success" data-toggle="modal"
-                                data-target="#staticBackdrop">Вход | Регистрация
+                                data-target="#staticBackdrop"><fmt:message key="header_login_reg"/>
                         </button>
                     </c:otherwise>
                 </c:choose>
@@ -47,7 +47,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Вход | Регистрация</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel"><fmt:message key="header_login_reg"/></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -56,11 +56,11 @@
                     <form action="controller" method="POST" style="display: flex; flex-direction: column;">
                         <input type="hidden" name="command" value="loginReg">
 
-                        <label for="login">Login</label>
+                        <label for="login"><fmt:message key="logReg_login"/></label>
 
                         <input class="form-control" type="text" required="required" pattern="[A-Za-z0-9]{4,30}" name="login" id="login"/>
 
-                        <label style="margin-top: 10px;" for="password">Password</label>
+                        <label style="margin-top: 10px;" for="password"><fmt:message key="logReg_password"/></label>
 
                         <input class="form-control" required="required" type="password"
                                pattern="[A-Za-z0-9]+"
@@ -69,38 +69,38 @@
                         <input class="form-control" style="margin-top: 10px; display: none" type="password" pattern="[A-Za-z0-9]+" id="dblPassword"/>
 
                         <label id="isNewLabel" class="is_new" for="isNew" style="display: flex; align-items: center; justify-content: space-between">
-                            <span>У меня нет аккаунта</span>
+                            <span><fmt:message key="logReg_imNew"/></span>
                             <input style="transform: scale(1.5)" type="checkbox" name="isNew" id="isNew">
                         </label>
 
-                        <button id="enter" type="submit" class="btn btn-success login_submit">Войти</button>
-                        <div id="check" style="display: none" class="btn btn-primary login_submit">Далее</div>
+                        <button id="enter" type="submit" class="btn btn-success login_submit"><fmt:message key="logReg_entrance"/></button>
+                        <div id="check" style="display: none" class="btn btn-primary login_submit"><fmt:message key="logReg_next"/></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="toastLogin toast" style="background-color: pink" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toastLogin toast" style="background-color: pink;z-index: 10;" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-            <strong class="mr-auto">Ошибка авторизации</strong>
+            <strong class="mr-auto"><fmt:message key="error_authorization"/></strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span class="hide-toast" aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="toast-body">
-            Неверный логин или пароль.
+            <fmt:message key="error_authorization_log"/>
         </div>
     </div>
-    <div class="toastRegister toast" style="background-color: orange" role="alert" aria-live="assertive"
+    <div class="toastRegister toast" style="background-color: orange;z-index: 10;" role="alert" aria-live="assertive"
          aria-atomic="true">
         <div class="toast-header">
-            <strong class="mr-auto">Ошибка регистрации</strong>
+            <strong class="mr-auto"><fmt:message key="error_registration"/></strong>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span class="hide-toast" aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="toast-body">
-            Данные некорректны или такой пользователь уже существует.
+            <fmt:message key="error_registration_log"/>
         </div>
     </div>
     <script>

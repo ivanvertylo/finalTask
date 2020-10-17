@@ -20,7 +20,7 @@ public class ChangePassword extends Command{
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
         User user = userService.findUserByLogin(session.getAttribute(Constant.LOGIN).toString());
-        user.setPassword(request.getParameter("password"));
+        user.setPassword(request.getParameter(Constant.PASSWORD));
         userService.updateUser(user);
         session.invalidate();
         return Path.CONTROLLER_MAIN_PAGE;

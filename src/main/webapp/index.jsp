@@ -3,6 +3,10 @@
 <html>
 <c:set var="title" value="Главная" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
+
+<fmt:setLocale value="${currentLocale}" scope="session"/>
+<fmt:setBundle basename="resources"/>
+
 <style>
     div.sticky {
         position: -webkit-sticky;
@@ -39,17 +43,17 @@
         <div class="row">
             <div class="col-md-12" style="margin-bottom: 15px; display: flex; justify-content: center;">
                 <div style="position: relative">
-                    <input id="subjectInput" oninput="onChange(this)" type="text" class="form-control" name="subject" placeholder="Предмет" style="width: 400px; display: inline" value="${subject}">
+                    <input id="subjectInput" oninput="onChange(this)" type="text" class="form-control" name="subject" placeholder="<fmt:message key="main_subject"/>" style="width: 400px; display: inline" value="${subject}">
                     <div id="sortBar" style="z-index: 1; position: absolute; top: 100%; left: 0; width: 100%; display: flex; flex-direction: column; background-color: lightgoldenrodyellow; text-align: center"></div>
                 </div>
             </div>
             <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center; align-items: flex-end">
                 <select style="width: max-content" class="form-control" name="type">
-                    <option value="asc" <c:if test="${type == 'asc'}">selected</c:if>>По возрастанию</option>
-                    <option value="desc" <c:if test="${type == 'desc'}">selected</c:if>>По убыванию</option>
+                    <option value="asc" <c:if test="${type == 'asc'}">selected</c:if>><fmt:message key="main_sort_up"/></option>
+                    <option value="desc" <c:if test="${type == 'desc'}">selected</c:if>><fmt:message key="main_sort_down"/></option>
                 </select>
                 <label style="display: flex; align-items: center;">
-                    Показывать тестов:
+                    <fmt:message key="main_view_tests"/>:
                     <select style="width: max-content; margin: 10px 0 10px 10px;" class="form-control" name="pagination">
                         <option value="5"<c:if test="${pagination == 5}">selected</c:if>>5</option>
                         <option value="10" <c:if test="${pagination == 10}">selected</c:if>>10</option>
@@ -60,21 +64,21 @@
             <div class="col-md-6">
             <div class="nav" style="display: flex; flex-direction: column;">
                 <label>
-                    По алфавиту
+                    <fmt:message key="main_sort_by_name"/>
                     <input style="position: relative; float: left; margin: 7px" class="form-check-input" type="radio" name="sort" value="name" <c:if test="${sort == 'name'}">checked</c:if>>
                 </label>
                 <label>
-                    По сложности
+                    <fmt:message key="main_sort_by_hard"/>
                     <input style="position: relative; float: left; margin: 7px" class="form-check-input" type="radio" name="sort" value="hard" <c:if test="${sort == 'hard'}">checked</c:if>>
                 </label>
                 <label>
-                    По количеству вопросов
+                    <fmt:message key="main_sort_by_count_question"/>
                     <input style="position: relative; float: left; margin: 7px" class="form-check-input" type="radio" name="sort" value="question" <c:if test="${sort == 'question'}">checked</c:if>>
                 </label>
             </div>
             </div>
             <div class="col-md-12" style="text-align: center; margin-top: 10px">
-                <button style="width: 400px" type="submit" class="btn btn-outline-primary">Применить</button>
+                <button style="width: 400px" type="submit" class="btn btn-outline-primary"><fmt:message key="main_apply"/></button>
             </div>
             <div class="col-md-12" style="text-align: center; margin-top: 10px">
                 <input type="hidden" name="offset" id = "offset">
@@ -91,7 +95,7 @@
         <c:forEach items="${tests}" var="item">
             <a <c:if test="${role != null}">href="test?id=${item.id}"</c:if> <c:if test="${role == null}">onclick="register()" </c:if> class="col-md-12" style="display: flex; align-items: center; justify-content: space-between; text-decoration: none;margin-bottom: 10px; padding: 15px; border-radius: 3px; border: 2px #007bff solid; color: #007bff">
                     <span>${item.name}</span>
-                    <span>${item.time} мин.</span>
+                    <span>${item.time} <fmt:message key="main_min"/>.</span>
                     <small class="mySmall" style="position: absolute; right:0; top: 0; margin: 4px; opacity: 0">${item.author}</small>
             </a>
         </c:forEach>

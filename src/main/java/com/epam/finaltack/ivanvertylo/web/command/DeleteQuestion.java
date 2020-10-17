@@ -1,5 +1,6 @@
 package com.epam.finaltack.ivanvertylo.web.command;
 
+import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
@@ -15,7 +16,7 @@ public class DeleteQuestion extends Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        questionService.deleteQuestion(Integer.parseInt(request.getParameter("questionId")));
-        return Path.CONTROLLER_EDITOR_PAGE+"?id="+request.getParameter("testId");
+        questionService.deleteQuestion(Integer.parseInt(request.getParameter(Constant.QUESTION_ID)));
+        return Path.CONTROLLER_EDITOR_PAGE+"?id="+request.getParameter(Constant.TEST_ID);
     }
 }

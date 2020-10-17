@@ -18,7 +18,7 @@ public class LeaveTest extends Command{
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession();
-        testService.setPoints((Integer)session.getAttribute("userId"),Integer.parseInt(request.getParameter("testId")),0);
+        testService.setPoints((Integer)session.getAttribute(Constant.USER_ID),Integer.parseInt(request.getParameter(Constant.TEST_ID)),0);
         return Path.NO_REDIRECT;
     }
 }
