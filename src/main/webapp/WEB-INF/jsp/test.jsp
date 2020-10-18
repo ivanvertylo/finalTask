@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+
+<fmt:setLocale value="${currentLocale}" scope="session"/>
+<fmt:setBundle basename="resources"/>
 <html>
 <c:set var="title" value="Тестирование" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
@@ -44,7 +47,7 @@
                         </a>
                     </div>
                 </c:forEach>
-                <button id="submit" style="position: absolute; margin: 10px; top: 0; right: 0" type="submit" class="btn btn-success">Завершить тест</button>
+                <button id="submit" style="position: absolute; margin: 10px; top: 0; right: 0" type="submit" class="btn btn-success"><fmt:message key="test_end"/></button>
             </form>
 
         </div>
@@ -96,7 +99,7 @@
     </c:when>
     <c:otherwise>
         <h1 style="display: flex; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; width: 100%; height: 100%">
-            <span>Ваш результат за тест</span>&nbsp;<b>"${testName}"</b>&nbsp;<span>равен:</span>&nbsp;<b>${total}%</b>
+            <span><fmt:message key="test_result_1"/></span>&nbsp;<b>"${testName}"</b>&nbsp;<span><fmt:message key="test_result_2"/>:</span>&nbsp;<b>${total}%</b>
         </h1>
     </c:otherwise>
 </c:choose>

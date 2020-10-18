@@ -37,6 +37,10 @@
     }
 </style>
 <body style="overflow-y:scroll;">
+<div style="position: absolute; top: 0; right: 0; margin: 5px;">
+    <a style="text-decoration: none; color: black;" href="controller?command=changeLocale&locale=ru">RU</a>
+    <a style="text-decoration: none; color: black;" href="controller?command=changeLocale&locale=en">EN</a>
+</div>
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <div class="sticky">
     <form id="setFilter" action="main" method="get">
