@@ -40,17 +40,17 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public List<Test> findAllTestNameSort(String subject, Integer pagination, String upDown, Integer offset) {
-        return repository.findTestsByNameSort(subject,pagination,upDown,offset);
+        return repository.findTestsByNameSort(subject.trim(),pagination,upDown,offset);
     }
 
     @Override
     public List<Test> findAllTestByQuestionSort(String subject, Integer pagination, String upDown, Integer offset) {
-        return repository.findTestsByNumberOfQuestionSort(subject,pagination,upDown,offset);
+        return repository.findTestsByNumberOfQuestionSort(subject.trim(),pagination,upDown,offset);
     }
 
     @Override
     public List<Test> findTestsByComplexitySort(String subject, Integer pagination, String upDown, Integer offset) {
-        return repository.findTestsByComplexitySort(subject,pagination,upDown,offset);
+        return repository.findTestsByComplexitySort(subject.trim(),pagination,upDown,offset);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    public Integer getAllTestsCount() {
-        return repository.getAllTestsCount();
+    public Integer getAllTestsCount(String subject) {
+        return repository.getAllTestsCount(subject.trim());
     }
 
     @Override

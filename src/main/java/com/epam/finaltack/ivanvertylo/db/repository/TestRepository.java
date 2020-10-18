@@ -15,7 +15,7 @@ public interface TestRepository {
     List<Test> findTestsByComplexitySort(String subject, Integer pagination, String upDown, Integer offset);
     List<CountSubjects> findSubjectsCounts(String substr);
     void updateTest(Test test);
-    Integer getAllTestsCount();
+    Integer getAllTestsCount(String subject);
     void setPoints(Integer idUser, Integer idTest, Integer points);
     Integer getPoints(Integer idUser, Integer idTest);
     List<TestPoints> findTestPointsByUserId(Integer id);

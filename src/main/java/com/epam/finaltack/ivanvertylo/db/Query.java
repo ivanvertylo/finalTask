@@ -2,6 +2,7 @@ package com.epam.finaltack.ivanvertylo.db;
 
 public class Query {
 
+
     private Query() { }
 
     public static final String SQL_FIND_USER_BY_LOGIN = "SELECT * FROM user WHERE user.login = ?;";
@@ -24,6 +25,8 @@ public class Query {
     public static final String SQL_GET_POINTS = "SELECT points FROM user_test where user_id = ? and test_id = ?;";
     public static final String SQL_FIND_TEST_POINTS_BY_USER_ID = "SELECT * FROM user_test, test where test_id = id and user_id = ?;";
     public static final String SQL_DELETE_QUESTION = "DELETE FROM question WHERE id = ?";
+    public static final String SQL_GET_ALL_TESTS_BY_PARAM = "SELECT count(*) FROM test WHERE subject=?";
+    public static final String SQL_GET_ALL_TESTS = "SELECT count(*) FROM test;";
 
     public static final String ID = "id";
     //USER

@@ -63,7 +63,7 @@ public class MainPage extends HttpServlet {
 
     private void setSort(Integer pagination, List<Test> tests, Integer offset, String type,String sort,String subject, HttpServletRequest req) {
         req.setAttribute("pagination", pagination);
-        req.setAttribute("pages", (int) Math.ceil(((double) testService.getAllTestsCount()) / pagination));
+        req.setAttribute("pages", (int) Math.ceil(((double) testService.getAllTestsCount(subject)) / pagination));
         req.setAttribute("tests", tests);
         req.setAttribute("type", type);
         req.setAttribute("offset", offset);

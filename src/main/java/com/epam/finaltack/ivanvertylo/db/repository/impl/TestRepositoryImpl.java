@@ -233,17 +233,23 @@ public class TestRepositoryImpl implements TestRepository {
     }
 
     @Override
-    public Integer getAllTestsCount() {
+    public Integer getAllTestsCount(String subject) {
         int requests = 0;
         ResultSet rs = null;
         Connection con = null;
-        Statement st = null;
+        PreparedStatement st = null;
         DBManager dbManager = DBManager.getInstance();
         try {
             con = dbManager.getConnection();
-            st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT count(*) FROM test;");
+            if (!subject.equals("")){
+                st = con.prepareStatement(Query.SQL_GET_ALL_TESTS_BY_PARAM);
+                st.setString(1,subject);
+            }
+            else {
+                st = con.prepareStatement(Query.SQL_GET_ALL_TESTS);
+            }
+            rs = st.executeQuery();
             while (rs.next()) {
                 requests = rs.getInt("count(*)");
             }
