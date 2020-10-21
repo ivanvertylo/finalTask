@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBManager {
-    private static final Logger LOGGER = Logger.getLogger(DBManager.class);
+    private static final Logger LOG = Logger.getLogger(DBManager.class);
 
     private static DBManager instance;
 
@@ -29,7 +29,7 @@ public class DBManager {
             initContext = new InitialContext();
             ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/ST4DB");
         } catch (NamingException e) {
-            LOGGER.error(e.getMessage());
+            LOG.error("DBManager "+e.getMessage());
         }
     }
 
@@ -40,19 +40,9 @@ public class DBManager {
         try {
             con = ds.getConnection();
         } catch (SQLException ex) {
-            LOGGER.error(ex.getMessage());
+            LOG.error("getConnection "+ex.getMessage());
         }
         return con;
-    }
-
-    public void close(Connection con) {
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException ex) {
-                LOGGER.error(ex.getMessage());
-            }
-        }
     }
 
     public void rollback(Connection con) {
@@ -60,27 +50,7 @@ public class DBManager {
             try {
                 con.rollback();
             } catch (SQLException ex) {
-                LOGGER.error(ex.getMessage());
-            }
-        }
-    }
-
-    public void close(ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            } catch (SQLException ex) {
-                LOGGER.error(ex.getMessage());
-            }
-        }
-    }
-
-    public void close(Statement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                LOGGER.error(ex.getMessage());
+                LOG.error("rollback "+ex.getMessage());
             }
         }
     }
@@ -92,7 +62,7 @@ public class DBManager {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                LOGGER.error(ex.getMessage());
+                LOG.error("close "+ex.getMessage());
             }
         }
     }
@@ -102,7 +72,7 @@ public class DBManager {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                LOGGER.error(ex.getMessage());
+                LOG.error("close "+ex.getMessage());
             }
         }
     }

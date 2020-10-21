@@ -2,14 +2,13 @@ package com.epam.finaltack.ivanvertylo.web.redirect;
 
 import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
-import com.epam.finaltack.ivanvertylo.ServletUtil;
-import com.epam.finaltack.ivanvertylo.db.Query;
 import com.epam.finaltack.ivanvertylo.db.entity.Question;
 import com.epam.finaltack.ivanvertylo.db.entity.Test;
 import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
 import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +21,13 @@ import java.util.List;
 
 @WebServlet("/editor/*")
 public class EditorPage extends HttpServlet {
-
+    private static final Logger LOG = Logger.getLogger(EditorPage.class);
     TestService testService = new TestServiceImpl();
     QuestionService questionService = new QuestionServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOG.info("/editor");
         try {
             Test test = testService.findTestById(Integer.parseInt(req.getParameter(Constant.ID)));
             HttpSession session = req.getSession();
@@ -38,7 +38,8 @@ public class EditorPage extends HttpServlet {
                 req.setAttribute(Constant.TEST_SUBJECT, test.getSubject());
                 req.setAttribute(Constant.TEST_TIME, test.getTime());
                 req.setAttribute(Constant.TEST_PUBLIC, test.getIsPublic());
-                req.setAttribute("questions",questions);
+                req.setAttribute("questions", questions);
+                LOG.info(questions);
                 getServletContext().getRequestDispatcher(Path.EDITOR_PAGE).forward(req, resp);
             } else {
                 getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);

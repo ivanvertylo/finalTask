@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class);
+    private static final Logger LOG = Logger.getLogger(UserRepositoryImpl.class);
 
     @Override
     public User findUserByLogin(String login) {
@@ -34,10 +34,10 @@ public class UserRepositoryImpl implements UserRepository {
                 requests = extractUser(rs);
             }
             con.commit();
-
+            LOG.info("Performing findUserByLogin "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findUserByLogin");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
             dbManager.close(prst,con,rs);
         }
@@ -61,10 +61,10 @@ public class UserRepositoryImpl implements UserRepository {
             prst.setBoolean(5, false);
             res = prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing saveUser "+res);
         } catch (Exception e) {
+            LOG.error("Performing saveUser");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
             dbManager.close(prst,con);
         }
@@ -88,10 +88,10 @@ public class UserRepositoryImpl implements UserRepository {
             prst.setInt(6, user.getId());
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing updateUser");
         } catch (Exception e) {
+            LOG.error("Performing updateUser");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
             dbManager.close(prst,con);
         }

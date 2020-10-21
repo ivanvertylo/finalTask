@@ -1,6 +1,5 @@
 package com.epam.finaltack.ivanvertylo.web.redirect;
 
-import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.db.entity.TestPoints;
 import com.epam.finaltack.ivanvertylo.db.entity.User;
@@ -8,6 +7,7 @@ import com.epam.finaltack.ivanvertylo.db.service.TestService;
 import com.epam.finaltack.ivanvertylo.db.service.UserService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
 import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,13 +19,13 @@ import java.util.List;
 
 @WebServlet("/profile")
 public class ProfilePage extends HttpServlet {
-
+    private static final Logger LOG = Logger.getLogger(ProfilePage.class);
     private final UserService userService = new UserServiceImpl();
     private final TestService testService = new TestServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        LOG.info("/profile");
         User user = userService.findUserByLogin(req.getParameter("user"));
         if (user.getRole() == null){
             getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);

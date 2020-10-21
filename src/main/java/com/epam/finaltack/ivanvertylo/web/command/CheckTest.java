@@ -8,12 +8,11 @@ import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
 import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
+import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,12 +22,15 @@ public class CheckTest extends Command{
 
     private final TestService testService = new TestServiceImpl();
     private final QuestionService questionService = new QuestionServiceImpl();
+    private static final Logger LOG = Logger.getLogger(CheckTest.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         int testId = Integer.parseInt(request.getParameter(Constant.TEST_ID));
+        LOG.info("Performing execute test id="+testId);
         if (testService.getPoints((Integer)session.getAttribute(Constant.USER_ID),testId) != null && testService.getPoints((Integer)session.getAttribute(Constant.USER_ID),testId) != -1){
+            LOG.info("Test already passed");
             return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
         }
         String [] reqAnswers = request.getParameterValues("answers");
@@ -58,6 +60,7 @@ public class CheckTest extends Command{
             }
         }
         testService.setPoints((Integer) session.getAttribute(Constant.USER_ID),testId,(totalPoints*100)/maxPoints);
+        LOG.info("Total points="+totalPoints+" Max points="+maxPoints);
         return Path.CONTROLLER_TEST_PAGE+"?id="+testId;
     }
 }

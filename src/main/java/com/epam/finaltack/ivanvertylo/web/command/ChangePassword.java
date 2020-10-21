@@ -5,24 +5,24 @@ import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.db.entity.User;
 import com.epam.finaltack.ivanvertylo.db.service.UserService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 public class ChangePassword extends Command{
 
     private final UserService userService = new UserServiceImpl();
-
+    private static final Logger LOG = Logger.getLogger(ChangePassword.class);
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         User user = userService.findUserByLogin(session.getAttribute(Constant.LOGIN).toString());
         user.setPassword(request.getParameter(Constant.PASSWORD));
         userService.updateUser(user);
         session.invalidate();
+        LOG.info("Performing execute user id="+user.getId());
         return Path.CONTROLLER_MAIN_PAGE;
     }
 }

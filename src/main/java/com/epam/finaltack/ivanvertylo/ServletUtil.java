@@ -2,7 +2,6 @@ package com.epam.finaltack.ivanvertylo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 public class ServletUtil {
 

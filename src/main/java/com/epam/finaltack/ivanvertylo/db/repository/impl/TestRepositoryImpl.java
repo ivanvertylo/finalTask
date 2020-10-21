@@ -14,7 +14,7 @@ import java.util.List;
 
 public class TestRepositoryImpl implements TestRepository {
 
-    private static final Logger LOGGER = Logger.getLogger(TestRepository.class);
+    private static final Logger LOG = Logger.getLogger(TestRepositoryImpl.class);
 
     @Override
     public int save(Test test) {
@@ -28,20 +28,20 @@ public class TestRepositoryImpl implements TestRepository {
             prst.setString(1, test.getName());
             prst.setString(2, test.getAuthor());
             prst.setBoolean(3, test.getIsPublic());
-            if (prst.executeUpdate() > 0){
-                try(ResultSet resultSet = prst.getGeneratedKeys()){
-                    if (resultSet.next()){
+            if (prst.executeUpdate() > 0) {
+                try (ResultSet resultSet = prst.getGeneratedKeys()) {
+                    if (resultSet.next()) {
                         test.setId(resultSet.getInt(1));
                     }
                 }
             }
             con.commit();
-
+            LOG.info("Performing save "+test.getId());
         } catch (Exception e) {
+            LOG.error("Performing save");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
         return test.getId();
     }
@@ -63,12 +63,12 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = extractTest(rs);
             }
             con.commit();
-
+            LOG.info("Performing findTestById "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findTestById");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -90,12 +90,12 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTest(rs));
             }
             con.commit();
-
+            LOG.info("Performing findTestsByAuthor "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findTestsByAuthor");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -103,7 +103,7 @@ public class TestRepositoryImpl implements TestRepository {
     @Override
     public List<Test> findTestsByNameSort(String subject, Integer pagination, String upDown, Integer offset) {
         List<Test> requests = new ArrayList<>();
-        String substr = !subject.equals("") ? "WHERE subject='"+subject+"' AND" : "where";
+        String substr = !subject.equals("") ? "WHERE subject='" + subject + "' AND" : "where";
         ResultSet rs = null;
         Connection con = null;
         Statement st = null;
@@ -112,71 +112,71 @@ public class TestRepositoryImpl implements TestRepository {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" is_public = true order by name "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test " + substr + " is_public = true order by name " + upDown + " limit " + pagination + "  OFFSET " + offset + ";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
             con.commit();
-
+            LOG.info("Performing findTestsByNameSort "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findTestsByNameSort");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(st,con,rs);
+            dbManager.close(st, con, rs);
         }
         return requests;
     }
 
     @Override
-    public List<Test> findTestsByNumberOfQuestionSort(String subject,Integer pagination, String upDown, Integer offset) {
+    public List<Test> findTestsByNumberOfQuestionSort(String subject, Integer pagination, String upDown, Integer offset) {
         List<Test> requests = new ArrayList<>();
         ResultSet rs = null;
         Connection con = null;
         Statement st = null;
-        String substr = !subject.equals("") ? "WHERE subject='"+subject+"' AND" : "where";
+        String substr = !subject.equals("") ? "WHERE subject='" + subject + "' AND" : "where";
         DBManager dbManager = DBManager.getInstance();
         try {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+"  is_public = true order by (select count(*) from question where question.test_id = test.id) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test " + substr + "  is_public = true order by (select count(*) from question where question.test_id = test.id) " + upDown + " limit " + pagination + "  OFFSET " + offset + ";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
             con.commit();
-
+            LOG.info("Performing findTestsByNumberOfQuestionSort "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findTestsByNumberOfQuestionSort");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(st,con,rs);
+            dbManager.close(st, con, rs);
         }
         return requests;
     }
 
     @Override
-    public List<Test> findTestsByComplexitySort(String subject,Integer pagination, String upDown, Integer offset) {
+    public List<Test> findTestsByComplexitySort(String subject, Integer pagination, String upDown, Integer offset) {
         List<Test> requests = new ArrayList<>();
         ResultSet rs = null;
         Connection con = null;
-        String substr = !subject.equals("") ? "WHERE subject='"+subject+"' AND" : "where";
+        String substr = !subject.equals("") ? "WHERE subject='" + subject + "' AND" : "where";
         Statement st = null;
         DBManager dbManager = DBManager.getInstance();
         try {
             con = dbManager.getConnection();
             st = con.createStatement();
             con.setAutoCommit(false);
-            rs = st.executeQuery("SELECT * FROM test "+substr+" is_public = true order by -1*(test.time/(select count(*) from question where question.test_id = test.id)) "+upDown+" limit "+pagination+"  OFFSET "+offset+";");
+            rs = st.executeQuery("SELECT * FROM test " + substr + " is_public = true order by -1*(test.time/(select count(*) from question where question.test_id = test.id)) " + upDown + " limit " + pagination + "  OFFSET " + offset + ";");
             while (rs.next()) {
                 requests.add(extractTest(rs));
             }
             con.commit();
-
+            LOG.info("Performing findTestsByComplexitySort "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findTestsByComplexitySort");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(st,con,rs);
+            dbManager.close(st, con, rs);
         }
         return requests;
     }
@@ -198,12 +198,12 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractSubjectsCounts(rs));
             }
             con.commit();
-
+            LOG.info("Performing findSubjectsCounts "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findSubjectsCounts");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -224,11 +224,12 @@ public class TestRepositoryImpl implements TestRepository {
             prst.setInt(5, test.getId());
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing updateTest");
         } catch (Exception e) {
+            LOG.error("Performing updateTest");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
     }
 
@@ -242,11 +243,10 @@ public class TestRepositoryImpl implements TestRepository {
         try {
             con = dbManager.getConnection();
             con.setAutoCommit(false);
-            if (!subject.equals("")){
+            if (!subject.equals("")) {
                 st = con.prepareStatement(Query.SQL_GET_ALL_TESTS_BY_PARAM);
-                st.setString(1,subject);
-            }
-            else {
+                st.setString(1, subject);
+            } else {
                 st = con.prepareStatement(Query.SQL_GET_ALL_TESTS);
             }
             rs = st.executeQuery();
@@ -254,12 +254,12 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = rs.getInt("count(*)");
             }
             con.commit();
-
+            LOG.info("Performing getAllTestsCount "+requests);
         } catch (Exception e) {
+            LOG.error("Performing getAllTestsCount");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(st,con,rs);
+            dbManager.close(st, con, rs);
         }
         return requests;
     }
@@ -272,23 +272,22 @@ public class TestRepositoryImpl implements TestRepository {
         try {
             con = dbManager.getConnection();
             con.setAutoCommit(false);
-            if (getPoints(idUser,idTest) == null){
+            if (getPoints(idUser, idTest) == null) {
                 prst = con.prepareStatement(Query.SQL_SET_POINTS);
-            }
-            else {
+            } else {
                 prst = con.prepareStatement(Query.SQL_UPDATE_POINTS);
             }
-            prst.setInt(1,points);
+            prst.setInt(1, points);
             prst.setInt(2, idUser);
             prst.setInt(3, idTest);
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing setPoints");
         } catch (Exception e) {
+            LOG.error("Performing setPoints");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
     }
 
@@ -310,12 +309,12 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = rs.getInt("points");
             }
             con.commit();
-
+            LOG.info("Performing getPoints "+requests);
         } catch (Exception e) {
+            LOG.error("Performing getPoints");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -337,12 +336,12 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTestPoints(rs));
             }
             con.commit();
-
+            LOG.info("Performing findTestPointsByUserId "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findTestPointsByUserId");
             dbManager.rollback(con);
-            LOGGER.error(e.getMessage());
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -357,12 +356,14 @@ public class TestRepositoryImpl implements TestRepository {
         test.setTime(rs.getInt(Query.TEST_TIME));
         return test;
     }
+
     private CountSubjects extractSubjectsCounts(ResultSet rs) throws SQLException {
         CountSubjects countSubjects = new CountSubjects();
         countSubjects.setCount(rs.getInt("count(*)"));
         countSubjects.setName(rs.getString("subject"));
         return countSubjects;
     }
+
     private TestPoints extractTestPoints(ResultSet rs) throws SQLException {
         TestPoints testPoints = new TestPoints();
         testPoints.setTest(extractTest(rs));

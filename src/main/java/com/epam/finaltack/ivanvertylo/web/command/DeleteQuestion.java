@@ -4,19 +4,20 @@ import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
+import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
-public class DeleteQuestion extends Command{
+public class DeleteQuestion extends Command {
 
     private final QuestionService questionService = new QuestionServiceImpl();
+    private static final Logger LOG = Logger.getLogger(DeleteQuestion.class);
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         questionService.deleteQuestion(Integer.parseInt(request.getParameter(Constant.QUESTION_ID)));
-        return Path.CONTROLLER_EDITOR_PAGE+"?id="+request.getParameter(Constant.TEST_ID);
+        LOG.info("Performing execute delete question id: "+request.getParameter(Constant.QUESTION_ID));
+        return Path.CONTROLLER_EDITOR_PAGE + "?id=" + request.getParameter(Constant.TEST_ID);
     }
 }

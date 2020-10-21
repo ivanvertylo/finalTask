@@ -1,12 +1,10 @@
 package com.epam.finaltack.ivanvertylo.db.repository.impl;
 
-import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.db.DBManager;
 import com.epam.finaltack.ivanvertylo.db.Query;
 import com.epam.finaltack.ivanvertylo.db.entity.Answer;
-import com.epam.finaltack.ivanvertylo.db.entity.Test;
 import com.epam.finaltack.ivanvertylo.db.repository.AnswerRepository;
-import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +13,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnswerRepositoryImpl  implements AnswerRepository {
+public class AnswerRepositoryImpl implements AnswerRepository {
+    private static final Logger LOG = Logger.getLogger(AnswerRepositoryImpl.class);
+
     @Override
     public List<Answer> findAnswersByQuestionId(Integer questionId) {
         List<Answer> requests = new ArrayList<>();
@@ -33,11 +33,12 @@ public class AnswerRepositoryImpl  implements AnswerRepository {
                 requests.add(extractAnswer(rs));
             }
             con.commit();
-
+            LOG.info("Performing findAnswersByQuestionId "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findAnswersByQuestionId");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -56,11 +57,12 @@ public class AnswerRepositoryImpl  implements AnswerRepository {
             prst.setInt(3, answer.getQuestionId());
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing saveAnswer");
         } catch (Exception e) {
+            LOG.error("Performing saveAnswer");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
     }
 
@@ -78,12 +80,14 @@ public class AnswerRepositoryImpl  implements AnswerRepository {
             prst.setInt(3, answer.getId());
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing updateAnswer");
         } catch (Exception e) {
+            LOG.error("Performing updateAnswer");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
+
     }
 
     private Answer extractAnswer(ResultSet rs) throws SQLException {

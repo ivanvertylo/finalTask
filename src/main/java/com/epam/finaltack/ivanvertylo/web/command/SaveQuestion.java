@@ -7,33 +7,33 @@ import com.epam.finaltack.ivanvertylo.db.entity.Answer;
 import com.epam.finaltack.ivanvertylo.db.entity.Question;
 import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
+import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveQuestion extends Command{
+public class SaveQuestion extends Command {
 
     private final QuestionService questionService;
+    private static final Logger LOG = Logger.getLogger(SaveQuestion.class);
 
     public SaveQuestion() {
         questionService = new QuestionServiceImpl();
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         Question question = new Question();
         String testId = request.getParameter(Constant.TEST_ID);
         question.setTestId(Integer.parseInt(testId));
         question.setPoint(Integer.parseInt(request.getParameter(Constant.QUESTION_POINT)));
-        question.setName(ServletUtil.getUTF8(request,Constant.QUESTION_NAME));
+        question.setName(ServletUtil.getUTF8(request, Constant.QUESTION_NAME));
         String[] answers = ServletUtil.getUTF8Array(request, Constant.ANSWER);
         String[] answersRight = request.getParameterValues("answerRight");
         List<Answer> listAnswers = new ArrayList<>();
-        for (int i = 0; i < answers.length; i++){
+        for (int i = 0; i < answers.length; i++) {
             Answer answer = new Answer();
             answer.setName(answers[i]);
             answer.setRight(Boolean.parseBoolean(answersRight[i]));
@@ -41,6 +41,7 @@ public class SaveQuestion extends Command{
         }
         question.setAnswers(listAnswers);
         questionService.saveQuestion(question);
-        return Path.CONTROLLER_EDITOR_PAGE+"?id="+testId;
+        LOG.info("Performing execute save question "+question);
+        return Path.CONTROLLER_EDITOR_PAGE + "?id=" + testId;
     }
 }

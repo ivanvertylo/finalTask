@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="/WEB-INF/jspf/directive/taglib.jspf" %>
+<%@ taglib prefix="myPagination" tagdir="/WEB-INF/tags" %>
 <html>
 <c:set var="title" value="Главная" scope="page"/>
 <%@ include file="/WEB-INF/jspf/head.jspf" %>
@@ -86,9 +87,7 @@
             </div>
             <div class="col-md-12" style="text-align: center; margin-top: 10px">
                 <input type="hidden" name="offset" id = "offset">
-                <c:forEach var = "i" begin = "1" end = "${pages}">
-                    <button style="<c:if test="${offset == (i*pagination)-pagination}">background-color:#007bff; color: white</c:if>" value="${(i*pagination)-pagination}" onclick="forward(this)" type="button" class="btn btn-outline-primary">${i}</button>
-                </c:forEach>
+                <myPagination:pagination pages="${pages}" pagination="${pagination}"/>
             </div>
         </div>
     </form>

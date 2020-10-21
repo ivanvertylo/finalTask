@@ -4,23 +4,23 @@ import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.db.entity.User;
 import com.epam.finaltack.ivanvertylo.db.service.UserService;
-import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
+import org.apache.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public class BlockUser extends Command{
     private final UserService userService;
+    private static final Logger LOG = Logger.getLogger(BlockUser.class);
 
-    public BlockUser() {
-        userService = new UserServiceImpl();
+    public BlockUser(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) {
         User user = userService.findUserByLogin(request.getParameter(Constant.LOGIN));
+        LOG.info("Performing execute user id="+user.getId());
         if (user.getId() != null && !user.getRole().equals(Constant.ROLE_ADMIN)){
             user.setBlocked(!user.getBlocked());
             userService.updateUser(user);

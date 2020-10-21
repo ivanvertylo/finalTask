@@ -2,19 +2,18 @@ package com.epam.finaltack.ivanvertylo.db.repository.impl;
 
 import com.epam.finaltack.ivanvertylo.db.DBManager;
 import com.epam.finaltack.ivanvertylo.db.Query;
-import com.epam.finaltack.ivanvertylo.db.entity.Answer;
 import com.epam.finaltack.ivanvertylo.db.entity.Question;
-import com.epam.finaltack.ivanvertylo.db.repository.AnswerRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.QuestionRepository;
 import com.epam.finaltack.ivanvertylo.db.service.AnswerService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.AnswerServiceImpl;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuestionRepositoryImpl implements QuestionRepository {
-
+    private static final Logger LOG = Logger.getLogger(QuestionRepositoryImpl.class);
     private final AnswerService answerService;
 
     public QuestionRepositoryImpl() {
@@ -38,11 +37,12 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 requests.add(extractQuestion(rs));
             }
             con.commit();
-
+            LOG.info("Performing findQuestionsByTestId "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findQuestionsByTestId");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -59,19 +59,20 @@ public class QuestionRepositoryImpl implements QuestionRepository {
             prst.setString(1, question.getName());
             prst.setInt(2, question.getPoint());
             prst.setInt(3, question.getTestId());
-            if (prst.executeUpdate() > 0){
-                try(ResultSet resultSet = prst.getGeneratedKeys()){
-                    if (resultSet.next()){
+            if (prst.executeUpdate() > 0) {
+                try (ResultSet resultSet = prst.getGeneratedKeys()) {
+                    if (resultSet.next()) {
                         question.setId(resultSet.getInt(1));
                     }
                 }
             }
             con.commit();
-
+            LOG.info("Performing saveQuestion "+question.getId());
         } catch (Exception e) {
+            LOG.error("Performing saveQuestion");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
         return question.getId();
     }
@@ -89,11 +90,12 @@ public class QuestionRepositoryImpl implements QuestionRepository {
             prst.setInt(2, question.getId());
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing updateQuestion");
         } catch (Exception e) {
+            LOG.error("Performing updateQuestion");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
     }
 
@@ -114,11 +116,12 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 requests = extractQuestion(rs);
             }
             con.commit();
-
+            LOG.info("Performing findQuestionById "+requests);
         } catch (Exception e) {
+            LOG.error("Performing findQuestionById");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -135,11 +138,12 @@ public class QuestionRepositoryImpl implements QuestionRepository {
             prst.setInt(1, id);
             prst.executeUpdate();
             con.commit();
-
+            LOG.info("Performing deleteQuestion");
         } catch (Exception e) {
+            LOG.error("Performing deleteQuestion");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
     }
 

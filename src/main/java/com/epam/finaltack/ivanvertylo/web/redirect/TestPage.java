@@ -8,6 +8,7 @@ import com.epam.finaltack.ivanvertylo.db.service.QuestionService;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
 import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
 import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,12 +21,13 @@ import java.util.List;
 
 @WebServlet("/test")
 public class TestPage extends HttpServlet {
-
+    private static final Logger LOG = Logger.getLogger(TestPage.class);
     private final TestService testService = new TestServiceImpl();
     private final QuestionService questionService = new QuestionServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        LOG.info("/test");
         try {
             Test test = testService.findTestById(Integer.parseInt(req.getParameter(Constant.ID)));
             HttpSession session = req.getSession();
