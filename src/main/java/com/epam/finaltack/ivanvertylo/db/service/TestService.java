@@ -19,4 +19,6 @@ public interface TestService {
     void setPoints(Integer idUser, Integer idTest, Integer points);
     Integer getPoints(Integer idUser, Integer idTest);
     List<TestPoints> findTestPointsByUserLogin(String login);
+    void deleteTest(Integer testId);
+    boolean findTestByName(String name);
 }

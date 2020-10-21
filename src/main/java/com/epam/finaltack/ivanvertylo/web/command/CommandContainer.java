@@ -28,6 +28,8 @@ public class CommandContainer {
         commands.put("deleteQuestion", new DeleteQuestion());
         commands.put("changePassword", new ChangePassword());
         commands.put("changeLocale", new ChangeLocale());
+        commands.put("deleteTest", new DeleteTest());
+        commands.put("findTestByName", new FindTestByName());
     }
 
     public Command get(String commandName) {

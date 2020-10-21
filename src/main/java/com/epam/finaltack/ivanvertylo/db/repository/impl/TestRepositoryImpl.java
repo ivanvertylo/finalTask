@@ -346,6 +346,54 @@ public class TestRepositoryImpl implements TestRepository {
         return requests;
     }
 
+    @Override
+    public void deleteTest(Integer testId) {
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_DELETE_TEST);
+            prst.setInt(1, testId);
+            prst.executeUpdate();
+            con.commit();
+            LOG.info("Performing deleteTest");
+        } catch (Exception e) {
+            LOG.error("Performing deleteTest");
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst, con);
+        }
+    }
+
+    @Override
+    public Test findTestByName(String name) {
+        Test requests = null;
+        ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_FIND_TEST_BY_NAME);
+            prst.setString(1, name);
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                requests = extractTest(rs);
+            }
+            con.commit();
+            LOG.info("Performing findTestByName "+requests);
+        } catch (Exception e) {
+            LOG.error("Performing findTestByName");
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst, con, rs);
+        }
+        return requests;
+    }
+
     private Test extractTest(ResultSet rs) throws SQLException {
         Test test = new Test();
         test.setId(rs.getInt(Query.ID));

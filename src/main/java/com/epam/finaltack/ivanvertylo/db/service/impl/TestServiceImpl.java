@@ -79,4 +79,14 @@ public class TestServiceImpl implements TestService {
     public List<TestPoints> findTestPointsByUserLogin(String login) {
         return repository.findTestPointsByUserId(new UserServiceImpl().findUserByLogin(login).getId());
     }
+
+    @Override
+    public void deleteTest(Integer testId) {
+        repository.deleteTest(testId);
+    }
+
+    @Override
+    public boolean findTestByName(String name) {
+        return repository.findTestByName(name.trim()) != null;
+    }
 }

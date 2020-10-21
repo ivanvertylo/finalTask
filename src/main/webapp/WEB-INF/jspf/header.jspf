@@ -59,10 +59,9 @@
                         <label style="margin-top: 10px;" for="password"><fmt:message key="logReg_password"/></label>
 
                         <input class="form-control" required="required" type="password"
-                               pattern="[A-Za-z0-9]+"
                                name="password" id="password"/>
 
-                        <input class="form-control" style="margin-top: 10px; display: none" type="password" pattern="[A-Za-z0-9]+" id="dblPassword"/>
+                        <input class="form-control" style="margin-top: 10px; display: none" type="password" id="dblPassword"/>
 
                         <label id="isNewLabel" class="is_new" for="isNew" style="display: flex; align-items: center; justify-content: space-between">
                             <span><fmt:message key="logReg_imNew"/></span>

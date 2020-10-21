@@ -18,7 +18,7 @@
                 <input type="hidden" name="user" value="${user.login}">
                 <label style="margin:10px; display: flex; align-items: center;">
                     <span style="width: 280px; text-align: right"><fmt:message key="profile_username"/>:</span>
-                    <input class="form-control" style="margin-left: 10px" type="text" name="username" value="${user.username}">
+                    <input class="form-control" style="margin-left: 10px" type="text" required="required" pattern="^[a-zA-ZА-Яа-яЁё_]+$" name="username" value="${user.username}">
                 </label>
                 <button type="submit" class="btn btn-outline-success"><fmt:message key="profile_change_username"/></button>
             </form>
@@ -32,7 +32,7 @@
             <input type="hidden" name="command" value="changePassword">
             <label>
                 <fmt:message key="profile_password"/>:
-                <input class="form-control" id="changeInputPassword" type="password" name="password">
+                <input class="form-control" id="changeInputPassword" required="required" pattern="[A-Za-z0-9]+" type="password" name="password">
             </label>
             <label>
                 <fmt:message key="profile_again_password"/>:

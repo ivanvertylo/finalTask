@@ -19,4 +19,6 @@ public interface TestRepository {
     void setPoints(Integer idUser, Integer idTest, Integer points);
     Integer getPoints(Integer idUser, Integer idTest);
     List<TestPoints> findTestPointsByUserId(Integer id);
+    void deleteTest(Integer testId);
+    Test findTestByName(String name);
 }

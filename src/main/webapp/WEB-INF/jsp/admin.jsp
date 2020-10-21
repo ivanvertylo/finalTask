@@ -9,8 +9,8 @@
 <%@ include file="/WEB-INF/jspf/header.jspf" %>
 <form method="post" action="controller" style="display: flex; align-items: center; justify-content: center; margin: 0">
     <input type="hidden" name="command" value="createTest">
-    <input style="width: 300px; margin: 35px" class="form-control" type="text" name="testName">
-    <button class="btn btn-success" type="submit"><fmt:message key="admin_create_test"/></button>
+    <input id="createTest" oninput="onFindTestName(this)" style="width: 300px; margin: 35px; outline: none;" required="required" class="form-control" type="text" name="testName">
+    <button disabled id="createTestButton" class="btn btn-success" type="submit"><fmt:message key="admin_create_test"/></button>
 </form>
 <div style="display: flex; justify-content: center; align-items: center;">
     <label style="margin: 0; display: flex;">
@@ -28,12 +28,22 @@
 <ul style="padding: 0; list-style-type: none; width: 100%; margin: 20px 0 0;">
     <jsp:useBean id="tests" scope="request" type="java.util.List<com.epam.finaltack.ivanvertylo.db.entity.Test>"/>
     <c:forEach var="item" items="${tests}">
-        <li style="padding: 25px;border-top: 1px solid lightgray">
+        <li style="padding: 25px;border-top: 1px solid lightgray; position: relative">
             <a style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-decoration: none; <c:if test='${item.isPublic != true}'>color: red;</c:if>" href="/editor?id=${item.id}">${item.name}</a>
+            <form action="controller" method="post" style="position: absolute; top: 0; right: 0; display: flex; height: 100%">
+                <input type="hidden" name="command" value="deleteTest">
+                <input type="hidden" name="testId" value="${item.id}">
+                <div style="background-color: lightcoral; border: none; color: white; display: flex; align-items: center; padding: 10px; cursor: pointer" onclick="onClick(this)"><fmt:message key="admin_delete"/></div>
+            </form>
         </li>
     </c:forEach>
 </ul>
 <script>
+    function onClick(e) {
+        if (confirm("Delete test !")){
+            e.parentElement.submit();
+        }
+    }
     function onChange(e) {
         $.ajax({
             url: "/controller?command=findLogin&login="+e.value,
@@ -57,6 +67,27 @@
                     $("#findUsername").val("");
                     $("#blockUser").html("---")
                 }
+            }
+        });
+    }
+    function onFindTestName(e) {
+        $.ajax({
+            url: "/controller?command=findTestByName&testName="+e.value,
+            type: "GET",
+            dataType: "html",
+            success: function (response) {
+                debugger
+                const json = $.parseJSON(response)
+                if (json || e.value.trim() === ""){
+                    $("#createTest").css("border","solid 3px red");
+                    $("#createTestButton").prop( "disabled", true );
+
+                }
+                else {
+                    $("#createTest").css("border","solid 3px green");
+                    $("#createTestButton").prop( "disabled", false );
+                }
+
             }
         });
     }

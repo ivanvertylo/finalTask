@@ -12,11 +12,11 @@
     <input type="hidden" name="testId" value="${testId}">
     <label style="margin: 5px">
         <fmt:message key="editor_test_name"/>
-        <input type="text" name="testName" value="${testName}">
+        <input style="outline: none;" oninput="onFindTestName(this)" id="createTest" type="text" required="required" name="testName" value="${testName}">
     </label>
     <label style="margin: 5px">
         <fmt:message key="editor_test_subject"/>
-        <input type="text" name="testSubject" value="${testSubject}">
+        <input type="text" required="required" name="testSubject" value="${testSubject}">
     </label>
     <label style="margin: 5px">
         <fmt:message key="editor_test_is_public"/>
@@ -26,7 +26,7 @@
         <fmt:message key="editor_test_time"/>
         <input type="number" name="testTime" min="1" step="1" required pattern="[0-9]+" value="${testTime}">
     </label>
-    <button class="btn btn-success" type="submit"><fmt:message key="editor_test_save"/></button>
+    <button id="createTestButton" class="btn btn-success" type="submit"><fmt:message key="editor_test_save"/></button>
 </form>
 <div style="display: flex; align-items: center; justify-content: center; border-bottom: lightgray 1px solid">
     <ul style="list-style-type: none; padding: 0; margin: 1rem">
@@ -71,18 +71,39 @@
             </label>
             <label>
                 <fmt:message key="editor_question_name"/>
-                <input type="text" name="questionName">
+                <input type="text" required="required" name="questionName">
             </label>
             <div id="answerBlock">
-                <input type="text" style="margin: 5px" name="answer"><div style="display:inline-block"><input type="hidden" name="answerRight" value="false"><input type="checkbox" onclick="checkBox(this)"></div><br>
+                <input type="text" required="required" style="margin: 5px" name="answer"><div style="display:inline-block"><input type="hidden" name="answerRight" value="false"><input type="checkbox" onclick="checkBox(this)"></div><br>
             </div>
             <div style="margin-top: 10px" class="btn btn-primary" onclick="onClick()"><fmt:message key="editor_question_add"/></div>
             <button style="margin-top: 10px" class="btn btn-success" type="submit"><fmt:message key="editor_question_save"/></button>
         </form>
     </div>
 <script>
+    function onFindTestName(e) {
+        $.ajax({
+            url: "/controller?command=findTestByName&testName="+e.value+"&testId=${testId}",
+            type: "GET",
+            dataType: "html",
+            success: function (response) {
+                debugger
+                const json = $.parseJSON(response)
+                if (json || e.value.trim() === ""){
+                    $("#createTest").css("border","solid 3px red");
+                    $("#createTestButton").prop( "disabled", true );
+
+                }
+                else {
+                    $("#createTest").css("border","solid 3px green");
+                    $("#createTestButton").prop( "disabled", false );
+                }
+
+            }
+        });
+    }
     function onClick() {
-        $("#answerBlock").append('<input type="text" style="margin: 5px" name="answer"><div style="display:inline-block"><input type="hidden" name="answerRight" value="false"><input type="checkbox" onclick="checkBox(this)"></div><br>')
+        $("#answerBlock").append('<input type="text" required="required" style="margin: 5px" name="answer"><div style="display:inline-block"><input type="hidden" name="answerRight" value="false"><input type="checkbox" onclick="checkBox(this)"></div><br>')
     }
 
     function checkBox(e) {
