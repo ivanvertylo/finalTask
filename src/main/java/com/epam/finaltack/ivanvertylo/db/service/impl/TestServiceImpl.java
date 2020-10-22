@@ -20,7 +20,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public int save(Test test) {
-       return repository.save(test);
+        return repository.save(test);
     }
 
     @Override
@@ -40,17 +40,17 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public List<Test> findAllTestNameSort(String subject, Integer pagination, String upDown, Integer offset) {
-        return repository.findTestsByNameSort(subject.trim(),pagination,upDown,offset);
+        return repository.findTestsByNameSort(subject.trim(), pagination, upDown, offset);
     }
 
     @Override
     public List<Test> findAllTestByQuestionSort(String subject, Integer pagination, String upDown, Integer offset) {
-        return repository.findTestsByNumberOfQuestionSort(subject.trim(),pagination,upDown,offset);
+        return repository.findTestsByNumberOfQuestionSort(subject.trim(), pagination, upDown, offset);
     }
 
     @Override
     public List<Test> findTestsByComplexitySort(String subject, Integer pagination, String upDown, Integer offset) {
-        return repository.findTestsByComplexitySort(subject.trim(),pagination,upDown,offset);
+        return repository.findTestsByComplexitySort(subject.trim(), pagination, upDown, offset);
     }
 
     @Override
@@ -67,12 +67,12 @@ public class TestServiceImpl implements TestService {
 
     @Override
     public void setPoints(Integer idUser, Integer idTest, Integer points) {
-        repository.setPoints(idUser,idTest,points);
+        repository.setPoints(idUser, idTest, points);
     }
 
     @Override
     public Integer getPoints(Integer idUser, Integer idTest) {
-        return repository.getPoints(idUser,idTest);
+        return repository.getPoints(idUser, idTest);
     }
 
     @Override

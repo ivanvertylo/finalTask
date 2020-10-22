@@ -26,12 +26,11 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
     public int registerUser(User user) {
         if (Pattern.compile("[A-Za-z0-9]+").matcher(user.getLogin()).find() &&
-                Pattern.compile("[A-Za-z0-9]+").matcher(user.getPassword()).find()){
-            if (userRepository.findUserByLogin(user.getLogin()).getPassword() == null){
+                Pattern.compile("[A-Za-z0-9]+").matcher(user.getPassword()).find()) {
+            if (userRepository.findUserByLogin(user.getLogin()).getPassword() == null) {
                 user.setUsername(user.getLogin());
                 return userRepository.saveUser(user);
             }

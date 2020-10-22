@@ -16,31 +16,31 @@ public class DBManager {
 
     private static DBManager instance;
 
-    public static synchronized DBManager getInstance(){
+    public static synchronized DBManager getInstance() {
         if (instance == null) {
             instance = new DBManager();
         }
         return instance;
     }
 
-    private DBManager(){
+    private DBManager() {
         Context initContext;
         try {
             initContext = new InitialContext();
             ds = (DataSource) initContext.lookup("java:/comp/env/jdbc/ST4DB");
         } catch (NamingException e) {
-            LOG.error("DBManager "+e.getMessage());
+            LOG.error("DBManager " + e.getMessage());
         }
     }
 
     private DataSource ds;
 
-    public Connection getConnection(){
+    public Connection getConnection() {
         Connection con = null;
         try {
             con = ds.getConnection();
         } catch (SQLException ex) {
-            LOG.error("getConnection "+ex.getMessage());
+            LOG.error("getConnection " + ex.getMessage());
         }
         return con;
     }
@@ -50,7 +50,7 @@ public class DBManager {
             try {
                 con.rollback();
             } catch (SQLException ex) {
-                LOG.error("rollback "+ex.getMessage());
+                LOG.error("rollback " + ex.getMessage());
             }
         }
     }
@@ -62,17 +62,18 @@ public class DBManager {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                LOG.error("close "+ex.getMessage());
+                LOG.error("close " + ex.getMessage());
             }
         }
     }
+
     public void close(Statement stmt, Connection con) {
         if (stmt != null) {
             try {
                 stmt.close();
                 con.close();
             } catch (SQLException ex) {
-                LOG.error("close "+ex.getMessage());
+                LOG.error("close " + ex.getMessage());
             }
         }
     }

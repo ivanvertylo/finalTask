@@ -2,7 +2,8 @@ package com.epam.finaltack.ivanvertylo;
 
 public class Path {
 
-    private Path() { }
+    private Path() {
+    }
 
     public static final String CONTROLLER_MAIN_PAGE = "main";
     public static final String CONTROLLER_ADMIN_PAGE = "admin";

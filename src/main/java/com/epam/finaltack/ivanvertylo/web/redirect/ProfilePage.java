@@ -27,7 +27,7 @@ public class ProfilePage extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         LOG.info("/profile");
         User user = userService.findUserByLogin(req.getParameter("user"));
-        if (user.getRole() == null){
+        if (user.getRole() == null) {
             getServletContext().getRequestDispatcher(Path.ERROR_PAGE).forward(req, resp);
             return;
         }

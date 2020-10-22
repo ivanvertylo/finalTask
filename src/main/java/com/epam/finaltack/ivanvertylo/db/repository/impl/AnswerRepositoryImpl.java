@@ -33,7 +33,7 @@ public class AnswerRepositoryImpl implements AnswerRepository {
                 requests.add(extractAnswer(rs));
             }
             con.commit();
-            LOG.info("Performing findAnswersByQuestionId "+requests);
+            LOG.info("Performing findAnswersByQuestionId " + requests);
         } catch (Exception e) {
             LOG.error("Performing findAnswersByQuestionId");
             dbManager.rollback(con);

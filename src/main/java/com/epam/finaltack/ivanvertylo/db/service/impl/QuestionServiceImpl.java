@@ -37,7 +37,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void updateQuestion(Question question) {
         questionRepository.updateQuestion(question);
-        for (Answer answer : question.getAnswers()){
+        for (Answer answer : question.getAnswers()) {
             answerRepository.updateAnswer(answer);
         }
     }

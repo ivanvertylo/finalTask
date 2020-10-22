@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Admin extends Command {
     private static final Logger LOG = Logger.getLogger(Admin.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         LOG.info("Performing execute");

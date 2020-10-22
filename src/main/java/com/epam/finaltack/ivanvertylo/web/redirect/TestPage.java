@@ -36,12 +36,11 @@ public class TestPage extends HttpServlet {
                 req.setAttribute(Constant.TEST_ID, test.getId());
                 req.setAttribute(Constant.TEST_NAME, test.getName());
                 req.setAttribute(Constant.TEST_TIME, test.getTime());
-                Integer total = testService.getPoints((Integer)session.getAttribute("userId"),test.getId());
-                if (total == null || total == -1){
-                    req.setAttribute("questions",questions);
-                }
-                else {
-                    req.setAttribute("total",total);
+                Integer total = testService.getPoints((Integer) session.getAttribute("userId"), test.getId());
+                if (total == null || total == -1) {
+                    req.setAttribute("questions", questions);
+                } else {
+                    req.setAttribute("total", total);
                 }
                 getServletContext().getRequestDispatcher(Path.TEST_PAGE).forward(req, resp);
             } else {

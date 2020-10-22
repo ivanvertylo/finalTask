@@ -28,7 +28,7 @@ public class UpdateTestInfo extends Command {
         test.setTime(Integer.parseInt(request.getParameter(Constant.TEST_TIME)));
         test.setIsPublic(request.getParameter(Constant.TEST_PUBLIC) != null);
         testService.updateTest(test);
-        LOG.info("Performing execute update test: "+test);
+        LOG.info("Performing execute update test: " + test);
         return Path.CONTROLLER_EDITOR_PAGE + "?id=" + test.getId();
     }
 }

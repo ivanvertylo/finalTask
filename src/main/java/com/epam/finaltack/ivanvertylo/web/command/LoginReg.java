@@ -29,17 +29,16 @@ public class LoginReg extends Command {
             User user = userService.validateUser(new User(request.getParameter(Constant.LOGIN),
                     request.getParameter(Constant.PASSWORD)));
             if (user != null) {
-                if(user.getBlocked().equals(false)){
+                if (user.getBlocked().equals(false)) {
                     HttpSession httpSession = request.getSession();
                     httpSession.setAttribute(Constant.ROLE, user.getRole());
                     httpSession.setAttribute(Constant.USERNAME, user.getUsername());
                     httpSession.setAttribute(Constant.LOGIN, user.getLogin());
                     httpSession.setAttribute(Constant.USER_ID, user.getId());
-                    LOG.info("Performing execute user login: "+user);
-                }
-                else {
+                    LOG.info("Performing execute user login: " + user);
+                } else {
                     error = Constant.ERROR_BLOCKED;
-                    LOG.info("Performing execute user blocked: "+user);
+                    LOG.info("Performing execute user blocked: " + user);
                 }
             } else {
                 error = Constant.ERROR_LOGIN;
@@ -52,8 +51,7 @@ public class LoginReg extends Command {
             if (userService.registerUser(new User(login, password)) == 0) {
                 error = Constant.ERROR_REGISTER;
                 LOG.info("Performing execute error register");
-            }
-            else {
+            } else {
                 User user = userService.validateUser(new User(login,
                         password));
                 HttpSession httpSession = request.getSession();
@@ -61,9 +59,9 @@ public class LoginReg extends Command {
                 httpSession.setAttribute(Constant.USERNAME, user.getUsername());
                 httpSession.setAttribute(Constant.LOGIN, user.getLogin());
                 httpSession.setAttribute(Constant.USER_ID, user.getId());
-                LOG.info("Performing execute user register: "+user);
+                LOG.info("Performing execute user register: " + user);
             }
         }
-        return setErrorReturn(Path.CONTROLLER_MAIN_PAGE,error);
+        return setErrorReturn(Path.CONTROLLER_MAIN_PAGE, error);
     }
 }

@@ -41,7 +41,7 @@ public class SaveQuestion extends Command {
         }
         question.setAnswers(listAnswers);
         questionService.saveQuestion(question);
-        LOG.info("Performing execute save question "+question);
+        LOG.info("Performing execute save question " + question);
         return Path.CONTROLLER_EDITOR_PAGE + "?id=" + testId;
     }
 }

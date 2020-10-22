@@ -34,12 +34,12 @@ public class UserRepositoryImpl implements UserRepository {
                 requests = extractUser(rs);
             }
             con.commit();
-            LOG.info("Performing findUserByLogin "+requests);
+            LOG.info("Performing findUserByLogin " + requests);
         } catch (Exception e) {
             LOG.error("Performing findUserByLogin");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con,rs);
+            dbManager.close(prst, con, rs);
         }
         return requests;
     }
@@ -61,12 +61,12 @@ public class UserRepositoryImpl implements UserRepository {
             prst.setBoolean(5, false);
             res = prst.executeUpdate();
             con.commit();
-            LOG.info("Performing saveUser "+res);
+            LOG.info("Performing saveUser " + res);
         } catch (Exception e) {
             LOG.error("Performing saveUser");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
         return res;
     }
@@ -93,7 +93,7 @@ public class UserRepositoryImpl implements UserRepository {
             LOG.error("Performing updateUser");
             dbManager.rollback(con);
         } finally {
-            dbManager.close(prst,con);
+            dbManager.close(prst, con);
         }
     }
 

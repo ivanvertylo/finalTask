@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class FindTestByName extends Command{
+public class FindTestByName extends Command {
     private static final Logger LOG = Logger.getLogger(FindTestByName.class);
     private final TestService testService = new TestServiceImpl();
 
@@ -26,16 +26,14 @@ public class FindTestByName extends Command{
         PrintWriter printWriter = response.getWriter();
         String result = request.getParameter(Constant.TEST_ID);
         String testName = request.getParameter(Constant.TEST_NAME);
-        if (result != null){
+        if (result != null) {
             Test test = testService.findTestById(Integer.parseInt(result));
-            if (test.getName().equals(testName)){
+            if (test.getName().equals(testName)) {
                 printWriter.write(gson.toJson(false));
-            }
-            else {
+            } else {
                 printWriter.write(gson.toJson(testService.findTestByName(testName)));
             }
-        }
-        else {
+        } else {
             printWriter.write(gson.toJson(testService.findTestByName(testName)));
         }
         printWriter.flush();

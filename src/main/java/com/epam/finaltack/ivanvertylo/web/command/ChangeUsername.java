@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ChangeUsername extends Command
-{
+public class ChangeUsername extends Command {
     private final UserService userService = new UserServiceImpl();
     private static final Logger LOG = Logger.getLogger(ChangeUsername.class);
 
@@ -21,16 +20,16 @@ public class ChangeUsername extends Command
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         User user = userService.findUserByLogin(session.getAttribute(Constant.LOGIN).toString());
-        if (user.getRole().equals(Constant.ROLE_ADMIN)){
+        if (user.getRole().equals(Constant.ROLE_ADMIN)) {
             user = userService.findUserByLogin(request.getParameter(Constant.USER));
 
         }
-        user.setUsername(ServletUtil.getUTF8(request,Constant.USERNAME));
+        user.setUsername(ServletUtil.getUTF8(request, Constant.USERNAME));
         userService.updateUser(user);
-        LOG.info("Performing execute user id="+user.getId()+" username changed to "+user.getUsername());
-        if (user.getLogin().equals(session.getAttribute(Constant.LOGIN))){
-            session.setAttribute(Constant.USERNAME,user.getUsername());
+        LOG.info("Performing execute user id=" + user.getId() + " username changed to " + user.getUsername());
+        if (user.getLogin().equals(session.getAttribute(Constant.LOGIN))) {
+            session.setAttribute(Constant.USERNAME, user.getUsername());
         }
-        return Path.CONTROLLER_PROFILE_PAGE+"?user="+user.getLogin();
+        return Path.CONTROLLER_PROFILE_PAGE + "?user=" + user.getLogin();
     }
 }

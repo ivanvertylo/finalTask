@@ -37,7 +37,7 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 requests.add(extractQuestion(rs));
             }
             con.commit();
-            LOG.info("Performing findQuestionsByTestId "+requests);
+            LOG.info("Performing findQuestionsByTestId " + requests);
         } catch (Exception e) {
             LOG.error("Performing findQuestionsByTestId");
             dbManager.rollback(con);
@@ -67,7 +67,7 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 }
             }
             con.commit();
-            LOG.info("Performing saveQuestion "+question.getId());
+            LOG.info("Performing saveQuestion " + question.getId());
         } catch (Exception e) {
             LOG.error("Performing saveQuestion");
             dbManager.rollback(con);
@@ -116,7 +116,7 @@ public class QuestionRepositoryImpl implements QuestionRepository {
                 requests = extractQuestion(rs);
             }
             con.commit();
-            LOG.info("Performing findQuestionById "+requests);
+            LOG.info("Performing findQuestionById " + requests);
         } catch (Exception e) {
             LOG.error("Performing findQuestionById");
             dbManager.rollback(con);

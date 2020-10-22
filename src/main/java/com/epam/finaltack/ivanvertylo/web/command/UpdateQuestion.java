@@ -29,7 +29,7 @@ public class UpdateQuestion extends Command {
             question.getAnswers().get(i).setRight(request.getParameterValues(question.getAnswers().get(i).getId().toString()).length > 1);
         }
         questionService.updateQuestion(question);
-        LOG.info("Performing execute update question: "+question);
+        LOG.info("Performing execute update question: " + question);
         return Path.CONTROLLER_EDITOR_PAGE + "?id=" + question.getTestId();
     }
 }

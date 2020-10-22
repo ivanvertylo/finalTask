@@ -36,7 +36,7 @@ public class TestRepositoryImpl implements TestRepository {
                 }
             }
             con.commit();
-            LOG.info("Performing save "+test.getId());
+            LOG.info("Performing save " + test.getId());
         } catch (Exception e) {
             LOG.error("Performing save");
             dbManager.rollback(con);
@@ -63,7 +63,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = extractTest(rs);
             }
             con.commit();
-            LOG.info("Performing findTestById "+requests);
+            LOG.info("Performing findTestById " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestById");
             dbManager.rollback(con);
@@ -90,7 +90,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTest(rs));
             }
             con.commit();
-            LOG.info("Performing findTestsByAuthor "+requests);
+            LOG.info("Performing findTestsByAuthor " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestsByAuthor");
             dbManager.rollback(con);
@@ -117,7 +117,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTest(rs));
             }
             con.commit();
-            LOG.info("Performing findTestsByNameSort "+requests);
+            LOG.info("Performing findTestsByNameSort " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestsByNameSort");
             dbManager.rollback(con);
@@ -144,7 +144,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTest(rs));
             }
             con.commit();
-            LOG.info("Performing findTestsByNumberOfQuestionSort "+requests);
+            LOG.info("Performing findTestsByNumberOfQuestionSort " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestsByNumberOfQuestionSort");
             dbManager.rollback(con);
@@ -171,7 +171,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTest(rs));
             }
             con.commit();
-            LOG.info("Performing findTestsByComplexitySort "+requests);
+            LOG.info("Performing findTestsByComplexitySort " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestsByComplexitySort");
             dbManager.rollback(con);
@@ -198,7 +198,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractSubjectsCounts(rs));
             }
             con.commit();
-            LOG.info("Performing findSubjectsCounts "+requests);
+            LOG.info("Performing findSubjectsCounts " + requests);
         } catch (Exception e) {
             LOG.error("Performing findSubjectsCounts");
             dbManager.rollback(con);
@@ -254,7 +254,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = rs.getInt("count(*)");
             }
             con.commit();
-            LOG.info("Performing getAllTestsCount "+requests);
+            LOG.info("Performing getAllTestsCount " + requests);
         } catch (Exception e) {
             LOG.error("Performing getAllTestsCount");
             dbManager.rollback(con);
@@ -309,7 +309,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = rs.getInt("points");
             }
             con.commit();
-            LOG.info("Performing getPoints "+requests);
+            LOG.info("Performing getPoints " + requests);
         } catch (Exception e) {
             LOG.error("Performing getPoints");
             dbManager.rollback(con);
@@ -336,7 +336,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests.add(extractTestPoints(rs));
             }
             con.commit();
-            LOG.info("Performing findTestPointsByUserId "+requests);
+            LOG.info("Performing findTestPointsByUserId " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestPointsByUserId");
             dbManager.rollback(con);
@@ -384,7 +384,7 @@ public class TestRepositoryImpl implements TestRepository {
                 requests = extractTest(rs);
             }
             con.commit();
-            LOG.info("Performing findTestByName "+requests);
+            LOG.info("Performing findTestByName " + requests);
         } catch (Exception e) {
             LOG.error("Performing findTestByName");
             dbManager.rollback(con);

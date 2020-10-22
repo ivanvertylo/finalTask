@@ -10,7 +10,8 @@ public class User {
     private String username;
     private Boolean isBlocked;
 
-    public User() { }
+    public User() {
+    }
 
     public User(String login, String password) {
         this.login = login;

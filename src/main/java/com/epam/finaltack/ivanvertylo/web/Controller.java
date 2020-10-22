@@ -15,6 +15,7 @@ import java.io.IOException;
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
     private static final Logger LOG = Logger.getLogger(Controller.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         process(req, resp);
@@ -30,13 +31,12 @@ public class Controller extends HttpServlet {
         String commandName = request.getParameter("command");
         CommandContainer commandContainer = new CommandContainer();
         Command command = commandContainer.get(commandName);
-        if (command != null){
+        if (command != null) {
             String redirect = command.execute(request, response);
-            if (!redirect.equals(Path.NO_REDIRECT)){
+            if (!redirect.equals(Path.NO_REDIRECT)) {
                 response.sendRedirect(redirect);
             }
-        }
-        else {
+        } else {
             response.sendRedirect(Path.CONTROLLER_ERROR_PAGE);
         }
     }

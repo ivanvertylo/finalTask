@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface AnswerRepository {
     List<Answer> findAnswersByQuestionId(Integer questionId);
+
     void saveAnswer(Answer answer);
+
     void updateAnswer(Answer answer);
 }

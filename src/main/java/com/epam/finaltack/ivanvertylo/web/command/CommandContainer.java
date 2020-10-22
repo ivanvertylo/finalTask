@@ -10,13 +10,14 @@ import java.util.TreeMap;
 public class CommandContainer {
     private final Map<String, Command> commands = new TreeMap<>();
     private static final Logger LOG = Logger.getLogger(CommandContainer.class);
-    public CommandContainer(){
+
+    public CommandContainer() {
         commands.put(Constant.COMMAND_LOGIN, new LoginReg());
         commands.put(Constant.COMMAND_LOGOUT, new Logout());
         commands.put(Constant.COMMAND_ADMIN, new Admin());
         commands.put(Constant.COMMAND_CREATE_TEST, new CreateTest());
         commands.put(Constant.COMMAND_FIND_LOGIN, new FindLogin(new UserServiceImpl()));
-        commands.put(Constant.COMMAND_BLOCK_USER, new BlockUser(new  UserServiceImpl()));
+        commands.put(Constant.COMMAND_BLOCK_USER, new BlockUser(new UserServiceImpl()));
         commands.put(Constant.COMMAND_SAVE_QUESTION, new SaveQuestion());
         commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
         commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo());
@@ -37,7 +38,7 @@ public class CommandContainer {
             LOG.info("Command: null");
             return null;
         }
-        LOG.info("Command: "+commands.get(commandName));
+        LOG.info("Command: " + commands.get(commandName));
         return commands.get(commandName);
     }
 }

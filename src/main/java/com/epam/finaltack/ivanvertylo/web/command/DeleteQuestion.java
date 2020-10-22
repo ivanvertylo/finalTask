@@ -17,7 +17,7 @@ public class DeleteQuestion extends Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         questionService.deleteQuestion(Integer.parseInt(request.getParameter(Constant.QUESTION_ID)));
-        LOG.info("Performing execute delete question id: "+request.getParameter(Constant.QUESTION_ID));
+        LOG.info("Performing execute delete question id: " + request.getParameter(Constant.QUESTION_ID));
         return Path.CONTROLLER_EDITOR_PAGE + "?id=" + request.getParameter(Constant.TEST_ID);
     }
 }

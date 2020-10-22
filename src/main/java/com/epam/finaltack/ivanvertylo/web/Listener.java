@@ -6,6 +6,6 @@ import javax.servlet.ServletContextListener;
 public class Listener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        sce.getServletContext().setAttribute("locale","en");
+        sce.getServletContext().setAttribute("locale", "en");
     }
 }

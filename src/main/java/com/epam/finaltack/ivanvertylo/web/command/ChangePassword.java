@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ChangePassword extends Command{
+public class ChangePassword extends Command {
 
     private final UserService userService = new UserServiceImpl();
     private static final Logger LOG = Logger.getLogger(ChangePassword.class);
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -22,7 +23,7 @@ public class ChangePassword extends Command{
         user.setPassword(request.getParameter(Constant.PASSWORD));
         userService.updateUser(user);
         session.invalidate();
-        LOG.info("Performing execute user id="+user.getId());
+        LOG.info("Performing execute user id=" + user.getId());
         return Path.CONTROLLER_MAIN_PAGE;
     }
 }

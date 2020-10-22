@@ -9,8 +9,8 @@ public abstract class Command {
     public abstract String execute(HttpServletRequest request,
                                    HttpServletResponse response) throws IOException, ServletException;
 
-    public final String setErrorReturn(String path,String errorName){
-        return !errorName.equals("") ? path+"?"+errorName+"=true":path;
+    public final String setErrorReturn(String path, String errorName) {
+        return !errorName.equals("") ? path + "?" + errorName + "=true" : path;
     }
 
     @Override

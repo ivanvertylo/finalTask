@@ -29,7 +29,7 @@ public class CreateTest extends Command {
         test.setAuthor((String) session.getAttribute(Constant.LOGIN));
         test.setIsPublic(false);
         int testId = testService.save(test);
-        LOG.info("Performing execute test="+test);
+        LOG.info("Performing execute test=" + test);
         return Path.CONTROLLER_EDITOR_PAGE + "?" + Constant.ID + "=" + testId;
     }
 }

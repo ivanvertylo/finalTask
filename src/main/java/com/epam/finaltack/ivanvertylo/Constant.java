@@ -2,7 +2,8 @@ package com.epam.finaltack.ivanvertylo;
 
 public class Constant {
 
-    private Constant() { }
+    private Constant() {
+    }
 
     public static final String COMMAND_LOGIN = "loginReg";
     public static final String COMMAND_LOGOUT = "logout";
