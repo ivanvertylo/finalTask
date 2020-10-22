@@ -5,7 +5,6 @@ import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.ServletUtil;
 import com.epam.finaltack.ivanvertylo.db.entity.User;
 import com.epam.finaltack.ivanvertylo.db.service.UserService;
-import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ChangeUsername extends Command {
-    private final UserService userService = new UserServiceImpl();
+    private final UserService userService;
+
+    public ChangeUsername(UserService userService) {
+        this.userService = userService;
+    }
+
     private static final Logger LOG = Logger.getLogger(ChangeUsername.class);
 
     @Override

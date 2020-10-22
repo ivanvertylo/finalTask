@@ -13,8 +13,12 @@ import javax.servlet.http.HttpSession;
 
 public class ChangePassword extends Command {
 
-    private final UserService userService = new UserServiceImpl();
+    private final UserService userService;
     private static final Logger LOG = Logger.getLogger(ChangePassword.class);
+
+    public ChangePassword(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
