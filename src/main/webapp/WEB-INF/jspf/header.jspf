@@ -86,6 +86,17 @@
             <fmt:message key="error_authorization_log"/>
         </div>
     </div>
+    <div class="toastBlocked toast" style="background-color: orange;z-index: 10;" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="mr-auto"><fmt:message key="error_blocked"/></strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span class="hide-toast" aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <fmt:message key="error_blocked_log"/>
+        </div>
+    </div>
     <div class="toastRegister toast" style="background-color: orange;z-index: 10;" role="alert" aria-live="assertive"
          aria-atomic="true">
         <div class="toast-header">
@@ -120,6 +131,7 @@
         })
         <c:set var="loginError" value="<%=request.getParameter(Constant.ERROR_LOGIN)%>"/>
         <c:set var="registerError" value="<%=request.getParameter(Constant.ERROR_REGISTER)%>"/>
+        <c:set var="errorAdminBlockedUser" value="<%=request.getParameter(Constant.ERROR_BLOCKED)%>"/>
         <c:choose>
         <c:when test="${loginError == true}">
         $('.toastLogin').toast({autohide: false});
@@ -127,6 +139,7 @@
         $(".hide-toast").click(function () {
             $(".toastRegister").hide();
             $(".toastLogin").hide();
+            $(".toastBlocked").hide();
         });
         </c:when>
         <c:when test="${registerError == true}">
@@ -135,11 +148,22 @@
         $(".hide-toast").click(function () {
             $(".toastRegister").hide();
             $(".toastLogin").hide();
+            $(".toastBlocked").hide();
+        });
+        </c:when>
+        <c:when test="${errorAdminBlockedUser == true}">
+        $('.toastBlocked').toast({autohide: false});
+        $('.toastBlocked').toast("show");
+        $(".hide-toast").click(function () {
+            $(".toastRegister").hide();
+            $(".toastLogin").hide();
+            $(".toastBlocked").hide();
         });
         </c:when>
         <c:otherwise>
         $(".toastRegister").hide();
         $(".toastLogin").hide();
+        $(".toastBlocked").hide();
         </c:otherwise>
         </c:choose>
     </script>

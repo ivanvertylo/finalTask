@@ -14,6 +14,15 @@ public class Constant {
     public static final String COMMAND_UPDATE_TEST = "updateTestInfo";
     public static final String COMMAND_UPDATE_QUESTION = "updateQuestion";
     public static final String COMMAND_CHECK_TEST = "checkTest";
+    public static final String COMMAND_FIND_SUBJECT = "findSubject";
+    public static final String COMMAND_LEAVE_TEST = "leaveTest";
+    public static final String COMMAND_CHANGE_USERNAME = "changeUsername";
+    public static final String COMMAND_DELETE_POINTS = "deletePoints";
+    public static final String COMMAND_DELETE_QUESTION = "deleteQuestion";
+    public static final String COMMAND_CHANGE_PASSWORD = "changePassword";
+    public static final String COMMAND_CHANGE_LOCALE = "changeLocale";
+    public static final String COMMAND_DELETE_TEST = "deleteTest";
+    public static final String COMMAND_FIND_TEST_BY_NAME = "findTestByName";
 
     public static final String ID = "id";
 

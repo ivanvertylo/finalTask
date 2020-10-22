@@ -21,15 +21,15 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
         commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo());
         commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest());
-        commands.put("findSubject", new FindSubject());
-        commands.put("leaveTest", new LeaveTest());
-        commands.put("changeUsername", new ChangeUsername());
-        commands.put("deletePoints", new DeletePoints());
-        commands.put("deleteQuestion", new DeleteQuestion());
-        commands.put("changePassword", new ChangePassword());
-        commands.put("changeLocale", new ChangeLocale());
-        commands.put("deleteTest", new DeleteTest());
-        commands.put("findTestByName", new FindTestByName());
+        commands.put(Constant.COMMAND_FIND_SUBJECT, new FindSubject());
+        commands.put(Constant.COMMAND_LEAVE_TEST, new LeaveTest());
+        commands.put(Constant.COMMAND_CHANGE_USERNAME, new ChangeUsername());
+        commands.put(Constant.COMMAND_DELETE_POINTS, new DeletePoints());
+        commands.put(Constant.COMMAND_DELETE_QUESTION, new DeleteQuestion());
+        commands.put(Constant.COMMAND_CHANGE_PASSWORD, new ChangePassword());
+        commands.put(Constant.COMMAND_CHANGE_LOCALE, new ChangeLocale());
+        commands.put(Constant.COMMAND_DELETE_TEST, new DeleteTest());
+        commands.put(Constant.COMMAND_FIND_TEST_BY_NAME, new FindTestByName());
     }
 
     public Command get(String commandName) {

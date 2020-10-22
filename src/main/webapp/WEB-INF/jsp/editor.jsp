@@ -10,21 +10,24 @@
 <form method="post" action="controller" style="display: flex; align-items: center; justify-content: center; margin-top: 15px">
     <input type="hidden" name="command" value="updateTestInfo">
     <input type="hidden" name="testId" value="${testId}">
-    <label style="margin: 5px">
+    <label style="margin: 15px; display: flex; flex-direction: column">
         <fmt:message key="editor_test_name"/>
         <input style="outline: none;" oninput="onFindTestName(this)" id="createTest" type="text" required="required" name="testName" value="${testName}">
     </label>
-    <label style="margin: 5px">
+    <label style="margin: 15px; display: flex; flex-direction: column">
         <fmt:message key="editor_test_subject"/>
-        <input type="text" required="required" name="testSubject" value="${testSubject}">
+        <div style="position: relative">
+            <input id="subjectInput" oninput="onChange(this)" type="text" required="required" name="testSubject" value="${testSubject}">
+            <div id="sortBar" style="z-index: 1; position: absolute; top: 100%; left: 0; width: 100%; display: flex; flex-direction: column; background-color: lightgoldenrodyellow; text-align: center"></div>
+        </div>
     </label>
-    <label style="margin: 5px">
-        <fmt:message key="editor_test_is_public"/>
-        <input type="checkbox" name="testPublic" <c:if test="${testPublic == true}">checked</c:if>>
-    </label>
-    <label style="margin: 5px">
+    <label style="margin: 15px; display:flex; flex-direction: column">
         <fmt:message key="editor_test_time"/>
         <input type="number" name="testTime" min="1" step="1" required pattern="[0-9]+" value="${testTime}">
+    </label>
+    <label style="margin: 15px">
+        <fmt:message key="editor_test_is_public"/>
+        <input type="checkbox" name="testPublic" <c:if test="${testPublic == true}">checked</c:if>>
     </label>
     <button id="createTestButton" class="btn btn-success" type="submit"><fmt:message key="editor_test_save"/></button>
 </form>
@@ -108,6 +111,29 @@
 
     function checkBox(e) {
         e.parentNode.firstElementChild.value = e.checked;
+    }
+    function onChange(e) {
+        $.ajax({
+            url: "/controller?command=findSubject&subject="+e.value,
+            type: "GET",
+            dataType: "html",
+            contentType: "application/json;charset=utf-8",
+            success: function (response) {
+                const json = $.parseJSON(response)
+                const myNode = document.getElementById("sortBar");
+                while (myNode.firstChild) {
+                    myNode.removeChild(myNode.firstChild);
+                }
+                $("#sortBar").show()
+                json.map((item)=>{
+                    $("#sortBar").append("<div style='padding: 15px; border-top: 1px solid gray'><span style='font-style: italic'>#</span><span onclick='selectSubject(this)' style='font-weight: bold; cursor: pointer;'>"+item.name+"</span></div>");
+                })
+            }
+        });
+    }
+    function selectSubject(e) {
+        $("#subjectInput").val(e.innerText);
+        $("#sortBar").hide();
     }
 </script>
 </body>

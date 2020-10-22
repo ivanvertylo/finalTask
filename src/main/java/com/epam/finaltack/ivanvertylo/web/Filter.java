@@ -32,6 +32,7 @@ public class Filter implements javax.servlet.Filter {
         privateCommand.put("deletePoints", Arrays.asList(Constant.ROLE_ADMIN));
         privateCommand.put("deleteQuestion", Arrays.asList(Constant.ROLE_ADMIN));
         privateCommand.put("leaveTest", Arrays.asList(Constant.ROLE_ADMIN, Constant.ROLE_USER));
+        privateCommand.put("deleteTest", Arrays.asList(Constant.ROLE_ADMIN));
 
         privateUrl.put(Path.CONTROLLER_ADMIN_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
         privateUrl.put(Path.CONTROLLER_EDITOR_PAGE, Arrays.asList(Constant.ROLE_ADMIN));
