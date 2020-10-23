@@ -47,7 +47,7 @@
                         </a>
                     </div>
                 </c:forEach>
-                <button id="submit" style="position: absolute; margin: 10px; top: 0; right: 0" type="submit" class="btn btn-success"><fmt:message key="test_end"/></button>
+                <button id="submit" style="position: absolute; margin: 10px; <c:if test="${questions.size() == 0}">display:none;</c:if> top: 0; right: 0" type="submit" class="btn btn-success"><fmt:message key="test_end"/></button>
             </form>
 
         </div>

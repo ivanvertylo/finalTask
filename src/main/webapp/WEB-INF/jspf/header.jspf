@@ -19,6 +19,9 @@
                         <button type="submit" class="btn btn-outline-danger"><fmt:message key="header_admin"/></button>
                     </form>
                 </c:if>
+                <c:if test="${role == 'admin'}">
+                    <a class="btn btn-outline-danger" href="/allUsers">allUsers</a>
+                </c:if>
                 <c:choose>
                     <c:when test="${role != null}">
                         <a style="margin-left: 10px" href="${pageContext.request.contextPath}/profile?user=${login}" type="button" class="btn btn-success"><%=session.getAttribute("username")%>

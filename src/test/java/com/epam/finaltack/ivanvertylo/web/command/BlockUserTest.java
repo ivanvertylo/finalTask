@@ -42,13 +42,13 @@ public class BlockUserTest {
         blockUser = new BlockUser(userService);
     }
     @Test
-    public void verifyExecute() throws IOException, ServletException {
+    public void verifyExecute(){
         blockUser.execute(request,response);
         verify(userService).findUserByLogin(LOGIN);
         verify(request).getParameter(Constant.LOGIN);
     }
     @Test
-    public void testExecute() throws IOException, ServletException {
+    public void testExecute(){
         user.setId(ID);
         user.setRole(ROLE);
         user.setBlocked(false);
@@ -56,7 +56,7 @@ public class BlockUserTest {
         assertEquals(result, Path.CONTROLLER_ADMIN_PAGE);
     }
     @Test
-    public void testExecute2() throws IOException, ServletException {
+    public void testExecute2(){
         String result = blockUser.execute(request,response);
         assertEquals(result, blockUser.setErrorReturn(Path.CONTROLLER_ADMIN_PAGE,Constant.ERROR_ADMIN_BLOCKED_USER));
     }

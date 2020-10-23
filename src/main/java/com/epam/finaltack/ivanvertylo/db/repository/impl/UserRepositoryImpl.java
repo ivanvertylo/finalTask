@@ -3,15 +3,16 @@ package com.epam.finaltack.ivanvertylo.db.repository.impl;
 import com.epam.finaltack.ivanvertylo.Constant;
 import com.epam.finaltack.ivanvertylo.db.DBManager;
 import com.epam.finaltack.ivanvertylo.db.Query;
+import com.epam.finaltack.ivanvertylo.db.entity.Test;
 import com.epam.finaltack.ivanvertylo.db.entity.User;
+import com.epam.finaltack.ivanvertylo.db.entity.UsersTestCount;
 import com.epam.finaltack.ivanvertylo.db.repository.UserRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
 
@@ -95,6 +96,65 @@ public class UserRepositoryImpl implements UserRepository {
         } finally {
             dbManager.close(prst, con);
         }
+    }
+
+    @Override
+    public List<UsersTestCount> findAllUsers() {
+        List<UsersTestCount> requests = new ArrayList<>();
+        ResultSet rs = null;
+        Connection con = null;
+        Statement st = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            st = con.createStatement();
+            con.setAutoCommit(false);
+            rs = st.executeQuery(Query.SQL_FIND_ALL_USERS);
+            while (rs.next()) {
+                requests.add(extractUsersCount(rs));
+            }
+            con.commit();
+            LOG.info("Performing findAllUsers " + requests);
+        } catch (Exception e) {
+            LOG.error("Performing findAllUsers");
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(st, con, rs);
+        }
+        return requests;
+    }
+
+    @Override
+    public int getCountTestForUser(String login) {
+        int requests = 0;
+        ResultSet rs = null;
+        Connection con = null;
+        PreparedStatement prst = null;
+        DBManager dbManager = DBManager.getInstance();
+        try {
+            con = dbManager.getConnection();
+            con.setAutoCommit(false);
+            prst = con.prepareStatement(Query.SQL_GET_COUNT_TEST_FOR_USER);
+            prst.setString(1, login);
+            rs = prst.executeQuery();
+            while (rs.next()) {
+                requests = rs.getInt("count(user_test.test_id)");
+            }
+            con.commit();
+            LOG.info("Performing findUserByLogin " + requests);
+        } catch (Exception e) {
+            LOG.error("Performing findUserByLogin");
+            dbManager.rollback(con);
+        } finally {
+            dbManager.close(prst, con, rs);
+        }
+        return requests;
+    }
+
+    private UsersTestCount extractUsersCount(ResultSet rs) throws SQLException {
+        UsersTestCount usersTestCount = new UsersTestCount();
+        usersTestCount.setUser(extractUser(rs));
+        return usersTestCount;
     }
 
     private User extractUser(ResultSet rs) throws SQLException {

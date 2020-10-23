@@ -30,6 +30,9 @@ public class Query {
     public static final String SQL_DELETE_TEST = "DELETE FROM test WHERE id = ?;";
     public static final String SQL_FIND_TEST_BY_NAME = "SELECT * FROM test WHERE name=?;";
 
+    public static final String SQL_FIND_ALL_USERS = "SELECT * FROM user;";
+    public static final String SQL_GET_COUNT_TEST_FOR_USER = "SELECT count(user_test.test_id) FROM user_test, user WHERE user.id=user_test.user_id and user.login=?";
+
     public static final String ID = "id";
     //USER
     public static final String USER_LOGIN = "login";

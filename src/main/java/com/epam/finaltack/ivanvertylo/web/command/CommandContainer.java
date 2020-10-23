@@ -6,11 +6,11 @@ import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
 import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class CommandContainer {
-    private final Map<String, Command> commands = new TreeMap<>();
+    private final Map<String, Command> commands = new HashMap<>();
     private static final Logger LOG = Logger.getLogger(CommandContainer.class);
 
     public CommandContainer() {

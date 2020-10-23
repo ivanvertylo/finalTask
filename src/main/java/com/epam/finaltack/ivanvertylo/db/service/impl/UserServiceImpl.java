@@ -1,11 +1,13 @@
 package com.epam.finaltack.ivanvertylo.db.service.impl;
 
 import com.epam.finaltack.ivanvertylo.db.entity.User;
+import com.epam.finaltack.ivanvertylo.db.entity.UsersTestCount;
 import com.epam.finaltack.ivanvertylo.db.repository.UserRepository;
 import com.epam.finaltack.ivanvertylo.db.repository.impl.UserRepositoryImpl;
 import com.epam.finaltack.ivanvertylo.db.service.UserService;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class UserServiceImpl implements UserService {
@@ -46,5 +48,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         userRepository.updateUser(user);
+    }
+
+    @Override
+    public List<UsersTestCount> findAllUsers() {
+        List<UsersTestCount> userTestCount =  userRepository.findAllUsers();
+        for(int i =0; i < userTestCount.size(); i++){
+            userTestCount.get(i).setCount(userRepository.getCountTestForUser(userTestCount.get(i).getUser().getLogin()));
+        }
+        return userTestCount;
     }
 }
