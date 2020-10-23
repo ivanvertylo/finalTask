@@ -11,8 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteQuestion extends Command {
 
-    private final QuestionService questionService = new QuestionServiceImpl();
+    private final QuestionService questionService;
+
     private static final Logger LOG = Logger.getLogger(DeleteQuestion.class);
+
+    public DeleteQuestion(QuestionService questionService) {
+        this.questionService = questionService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

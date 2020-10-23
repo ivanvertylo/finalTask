@@ -21,17 +21,17 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_FIND_LOGIN, new FindLogin(new UserServiceImpl()));
         commands.put(Constant.COMMAND_BLOCK_USER, new BlockUser(new UserServiceImpl()));
         commands.put(Constant.COMMAND_SAVE_QUESTION, new SaveQuestion());
-        commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
+        commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion(new QuestionServiceImpl()));
         commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo(new TestServiceImpl()));
         commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest(new TestServiceImpl(),new QuestionServiceImpl()));
-        commands.put(Constant.COMMAND_FIND_SUBJECT, new FindSubject());
+        commands.put(Constant.COMMAND_FIND_SUBJECT, new FindSubject(new TestServiceImpl()));
         commands.put(Constant.COMMAND_LEAVE_TEST, new LeaveTest(new TestServiceImpl()));
         commands.put(Constant.COMMAND_CHANGE_USERNAME, new ChangeUsername(new UserServiceImpl()));
-        commands.put(Constant.COMMAND_DELETE_POINTS, new DeletePoints());
-        commands.put(Constant.COMMAND_DELETE_QUESTION, new DeleteQuestion());
+        commands.put(Constant.COMMAND_DELETE_POINTS, new DeletePoints(new TestServiceImpl()));
+        commands.put(Constant.COMMAND_DELETE_QUESTION, new DeleteQuestion(new QuestionServiceImpl()));
         commands.put(Constant.COMMAND_CHANGE_PASSWORD, new ChangePassword(new UserServiceImpl()));
         commands.put(Constant.COMMAND_CHANGE_LOCALE, new ChangeLocale());
-        commands.put(Constant.COMMAND_DELETE_TEST, new DeleteTest());
+        commands.put(Constant.COMMAND_DELETE_TEST, new DeleteTest(new TestServiceImpl()));
         commands.put(Constant.COMMAND_FIND_TEST_BY_NAME, new FindTestByName());
     }
 

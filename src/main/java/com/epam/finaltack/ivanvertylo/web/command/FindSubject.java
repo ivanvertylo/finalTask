@@ -2,7 +2,6 @@ package com.epam.finaltack.ivanvertylo.web.command;
 
 import com.epam.finaltack.ivanvertylo.Path;
 import com.epam.finaltack.ivanvertylo.db.service.TestService;
-import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,11 @@ import java.io.PrintWriter;
 
 public class FindSubject extends Command {
     private static final Logger LOG = Logger.getLogger(FindSubject.class);
-    private final TestService testService = new TestServiceImpl();
+    private final TestService testService;
+
+    public FindSubject(TestService testService) {
+        this.testService = testService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {

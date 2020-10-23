@@ -16,8 +16,8 @@ public class UpdateQuestion extends Command {
     private final QuestionService questionService;
     private static final Logger LOG = Logger.getLogger(UpdateQuestion.class);
 
-    public UpdateQuestion() {
-        questionService = new QuestionServiceImpl();
+    public UpdateQuestion(QuestionService questionService) {
+        this.questionService = questionService;
     }
 
     @Override

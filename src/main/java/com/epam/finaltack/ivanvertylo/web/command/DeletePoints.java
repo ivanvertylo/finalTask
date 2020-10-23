@@ -11,7 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeletePoints extends Command {
 
-    private final TestService testService = new TestServiceImpl();
+    private final TestService testService;
+
+    public DeletePoints(TestService testService) {
+        this.testService = testService;
+    }
+
     private static final Logger LOG = Logger.getLogger(DeletePoints.class);
 
     @Override
