@@ -16,8 +16,8 @@ public class UpdateTestInfo extends Command {
     private final TestService testService;
     private static final Logger LOG = Logger.getLogger(UpdateTestInfo.class);
 
-    public UpdateTestInfo() {
-        testService = new TestServiceImpl();
+    public UpdateTestInfo(TestService testService) {
+        this.testService = testService;
     }
 
     @Override

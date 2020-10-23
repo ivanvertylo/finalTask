@@ -17,8 +17,8 @@ public class CreateTest extends Command {
     private final TestService testService;
     private static final Logger LOG = Logger.getLogger(CreateTest.class);
 
-    public CreateTest() {
-        this.testService = new TestServiceImpl();
+    public CreateTest(TestService testService) {
+        this.testService = testService;
     }
 
     @Override

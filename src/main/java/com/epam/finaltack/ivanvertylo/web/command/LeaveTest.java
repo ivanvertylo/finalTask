@@ -12,7 +12,11 @@ import javax.servlet.http.HttpSession;
 
 public class LeaveTest extends Command {
     private static final Logger LOG = Logger.getLogger(LeaveTest.class);
-    private final TestService testService = new TestServiceImpl();
+    private final TestService testService;
+
+    public LeaveTest(TestService testService) {
+        this.testService = testService;
+    }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {

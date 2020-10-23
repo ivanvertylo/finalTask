@@ -1,6 +1,8 @@
 package com.epam.finaltack.ivanvertylo.web.command;
 
 import com.epam.finaltack.ivanvertylo.Constant;
+import com.epam.finaltack.ivanvertylo.db.service.impl.QuestionServiceImpl;
+import com.epam.finaltack.ivanvertylo.db.service.impl.TestServiceImpl;
 import com.epam.finaltack.ivanvertylo.db.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -15,15 +17,15 @@ public class CommandContainer {
         commands.put(Constant.COMMAND_LOGIN, new LoginReg());
         commands.put(Constant.COMMAND_LOGOUT, new Logout());
         commands.put(Constant.COMMAND_ADMIN, new Admin());
-        commands.put(Constant.COMMAND_CREATE_TEST, new CreateTest());
+        commands.put(Constant.COMMAND_CREATE_TEST, new CreateTest(new TestServiceImpl()));
         commands.put(Constant.COMMAND_FIND_LOGIN, new FindLogin(new UserServiceImpl()));
         commands.put(Constant.COMMAND_BLOCK_USER, new BlockUser(new UserServiceImpl()));
         commands.put(Constant.COMMAND_SAVE_QUESTION, new SaveQuestion());
         commands.put(Constant.COMMAND_UPDATE_QUESTION, new UpdateQuestion());
-        commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo());
-        commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest());
+        commands.put(Constant.COMMAND_UPDATE_TEST, new UpdateTestInfo(new TestServiceImpl()));
+        commands.put(Constant.COMMAND_CHECK_TEST, new CheckTest(new TestServiceImpl(),new QuestionServiceImpl()));
         commands.put(Constant.COMMAND_FIND_SUBJECT, new FindSubject());
-        commands.put(Constant.COMMAND_LEAVE_TEST, new LeaveTest());
+        commands.put(Constant.COMMAND_LEAVE_TEST, new LeaveTest(new TestServiceImpl()));
         commands.put(Constant.COMMAND_CHANGE_USERNAME, new ChangeUsername(new UserServiceImpl()));
         commands.put(Constant.COMMAND_DELETE_POINTS, new DeletePoints());
         commands.put(Constant.COMMAND_DELETE_QUESTION, new DeleteQuestion());

@@ -20,8 +20,14 @@ import java.util.List;
 
 public class CheckTest extends Command {
 
-    private final TestService testService = new TestServiceImpl();
-    private final QuestionService questionService = new QuestionServiceImpl();
+    private final TestService testService;
+    private final QuestionService questionService;
+
+    public CheckTest(TestService testService, QuestionService questionService) {
+        this.testService = testService;
+        this.questionService = questionService;
+    }
+
     private static final Logger LOG = Logger.getLogger(CheckTest.class);
 
     @Override
